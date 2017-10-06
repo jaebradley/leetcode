@@ -3,7 +3,7 @@
 ## Problem ([from Leetcode](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/))
 > Given a string, find the length of the longest substring without repeating characters.
 
-## Examples:
+## Examples
 Given `abcabcbb`, the answer is `abc`, which the length is `3`.
 
 `bbbbb`, the answer is `b`, with the length of `1`.
