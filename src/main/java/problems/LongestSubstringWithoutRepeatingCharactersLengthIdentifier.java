@@ -20,7 +20,7 @@ public class LongestSubstringWithoutRepeatingCharactersLengthIdentifier {
         Set<Character> substringCharacters = new HashSet<>();
         Queue<Character> seenCharacters = new LinkedBlockingQueue<>();
 
-        for (Character c : s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             if (substringCharacters.contains(c)) {
                 while (seenCharacters.peek() != c) {
                     substringCharacters.remove(seenCharacters.poll());
