@@ -1,9 +1,9 @@
 package problems;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
-import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
@@ -17,25 +17,27 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class LongestSubstringWithoutRepeatingCharactersLengthIdentifier {
     public static int identify(String s) {
         int longestSubstringLength = 0;
-        Set<Character> substringCharacters = new HashSet<>();
-        Queue<Character> seenCharacters = new LinkedBlockingQueue<>();
+        Set<Character> substringCharacterFilter = new HashSet<>();
+        Deque<Character> characterWindow = new ArrayDeque<>();
 
         for (char currentCharacter : s.toCharArray()) {
-            if (substringCharacters.contains(currentCharacter)) {
-                while (seenCharacters.peek() != currentCharacter) {
-                    substringCharacters.remove(seenCharacters.poll());
+            if (substringCharacterFilter.contains(currentCharacter)) {
+                while (characterWindow.getFirst() != currentCharacter) {
+                    substringCharacterFilter.remove(characterWindow.removeFirst());
                 }
-                seenCharacters.poll();
+
+                characterWindow.removeFirst();
             } else {
-                substringCharacters.add(currentCharacter);
+                substringCharacterFilter.add(currentCharacter);
             }
 
-            seenCharacters.add(currentCharacter);
+            characterWindow.addLast(currentCharacter);
 
-            if (substringCharacters.size() > longestSubstringLength) {
-                longestSubstringLength = substringCharacters.size();
+            if (longestSubstringLength < substringCharacterFilter.size()) {
+                longestSubstringLength = substringCharacterFilter.size();
             }
         }
+
         return longestSubstringLength;
     }
 }
