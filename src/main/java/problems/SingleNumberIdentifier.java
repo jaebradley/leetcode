@@ -22,4 +22,12 @@ public class SingleNumberIdentifier {
 
         throw new IllegalArgumentException("Unknown");
     }
+
+    public static int identifyXOR(int[] numbers) {
+        int value = 0;
+        for (int number : numbers) {
+            value = value ^ number;
+        }
+        return value;
+    }
 }
