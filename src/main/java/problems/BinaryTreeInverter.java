@@ -2,19 +2,33 @@ package problems;
 
 import data.TreeNode;
 
+/**
+ * Invert a binary tree (https://leetcode.com/problems/invert-binary-tree/description/)
+ *
+ * Essentially convert
+ *      4
+ *    /   \
+ *   2     7
+ *  / \   / \
+ * 1   3 6   9
+ *
+ * to
+ *
+ *      4
+ *    /   \
+ *   7     2
+ *  / \   / \
+ * 9   6 3   1
+ **/
+
+
+
 public class BinaryTreeInverter {
-    public static void invert(TreeNode root) {
+    public static TreeNode createInvertedTree(TreeNode root) {
         if (root == null) {
-            return;
+            return null;
         }
 
-        TreeNode left = root.getLeft();
-        TreeNode right = root.getRight();
-
-        root.setLeft(right);
-        root.setRight(left);
-
-        invert(right);
-        invert(left);
+        return new TreeNode(root.getValue(), createInvertedTree(root.getRight()), createInvertedTree(root.getLeft()));
     }
 }
