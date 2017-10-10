@@ -1,9 +1,9 @@
 package data;
 
 public class TreeNode {
-    private final int value;
-    private final TreeNode left;
-    private final TreeNode right;
+    private int value;
+    private TreeNode left;
+    private TreeNode right;
 
     public TreeNode(final int value, final TreeNode left, final TreeNode right) {
         this.value = value;
@@ -21,5 +21,17 @@ public class TreeNode {
 
     public TreeNode getRight() {
         return right;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public void setLeft(TreeNode left) {
+        this.left = left;
+    }
+
+    public void setRight(TreeNode right) {
+        this.right = right;
     }
 }
