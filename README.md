@@ -9,6 +9,7 @@ Here are solutions (hopefully) to some of the problems on [Leetcode](https://lee
 * [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/description/)
 * [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/)
     * > Given a string, find the length of the longest substring without repeating characters.
+    * [`CodeReview` discussion](https://github.com/jaebradley/leetcode/blob/master/codereview/IdentifyLengthOfLongestSubstringWithoutRepeatingCharacters.md)
 * [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/description/)
 * [Single Number](https://leetcode.com/problems/single-number/description/)
     * > Given an array of integers, every element appears twice except for one. Find that single one.
