@@ -3,9 +3,9 @@ package data;
 import java.util.Objects;
 
 public class TreeNode {
-    private int value;
-    private TreeNode left;
-    private TreeNode right;
+    private final int value;
+    private final TreeNode left;
+    private final TreeNode right;
 
     public TreeNode(final int value, final TreeNode left, final TreeNode right) {
         this.value = value;
@@ -23,18 +23,6 @@ public class TreeNode {
 
     public TreeNode getRight() {
         return right;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public void setLeft(TreeNode left) {
-        this.left = left;
-    }
-
-    public void setRight(TreeNode right) {
-        this.right = right;
     }
 
     @Override
