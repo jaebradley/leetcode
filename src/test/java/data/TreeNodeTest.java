@@ -2,6 +2,8 @@ package data;
 
 import org.junit.Test;
 
+import java.util.Objects;
+
 import static org.junit.Assert.*;
 
 public class TreeNodeTest {
@@ -18,5 +20,30 @@ public class TreeNodeTest {
     @Test
     public void identicalNodesShouldBeEqual() {
         assertEquals(new TreeNode(value, null, null), node);
+    }
+
+    @Test
+    public void nonIdenticalNodesShouldNotBeEqual() {
+        assertNotEquals(new TreeNode(2, null, null), node);
+    }
+
+    @Test
+    public void identicalNodesShouldHaveSameHashCode() {
+        assertEquals(new TreeNode(value, null, null).hashCode(), node.hashCode());
+    }
+
+    @Test
+    public void shouldNotEqualNull() {
+        assertNotEquals(node, null);
+    }
+
+    @Test
+    public void shouldNotEqualOtherClass() {
+        assertNotEquals(1, node);
+    }
+
+    @Test
+    public void testHashCodeValue() {
+        assertEquals(Objects.hash(node.getValue(), node.getLeft(), node.getRight()), node.hashCode());
     }
 }
