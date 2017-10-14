@@ -23,6 +23,7 @@ public class HammingDistanceCalculator {
         int distance = 0;
         int hammingDistanceValue = value1 ^ value2;
         while (hammingDistanceValue != 0) {
+            // https://prismoskills.appspot.com/lessons/Bitwise_Operators/Count_ones_in_an_integer.jsp
             hammingDistanceValue = hammingDistanceValue & (hammingDistanceValue - 1);
             distance++;
         }
