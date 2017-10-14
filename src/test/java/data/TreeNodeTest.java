@@ -19,4 +19,14 @@ public class TreeNodeTest {
     public void identicalNodesShouldBeEqual() {
         assertEquals(new TreeNode(value, null, null), node);
     }
+
+    @Test
+    public void nonIdenticalNodesShouldNotBeEqual() {
+        assertNotEquals(new TreeNode(2, null, null), node);
+    }
+
+    @Test
+    public void identicalNodesShouldHaveSameHashCode() {
+        assertEquals(new TreeNode(value, null, null).hashCode(), node.hashCode());
+    }
 }
