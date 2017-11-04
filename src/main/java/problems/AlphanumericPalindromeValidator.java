@@ -16,26 +16,28 @@ package problems;
  * Do this until indices are same
  */
 
-public class PalindromeValidator {
-    public static boolean isAlphaNumericPalindromeIgnoringCase(String value) {
+public class AlphanumericPalindromeValidator {
+    public static boolean isValid(String value) {
         char[] chars = value.toCharArray();
         int i = 0;
         int j = value.length() - 1 - i;
         while (i < j) {
             char character = chars[i];
-            while (!PalindromeValidator.isAlphanumeric(character) && i < j) {
+            while (!AlphanumericPalindromeValidator.isAlphanumeric(character) && i < j) {
                 i++;
                 character = chars[i];
             }
             char oppositeCharacter = chars[j];
-            while (!PalindromeValidator.isAlphanumeric(oppositeCharacter) && j > i) {
+            while (!AlphanumericPalindromeValidator.isAlphanumeric(oppositeCharacter) && i < j) {
                 j--;
                 oppositeCharacter = chars[j];
             }
 
             if (i < j
-                    && !(PalindromeValidator.isAlphabeticCharacterPair(character, oppositeCharacter) && Character.toLowerCase(character) == Character.toLowerCase(oppositeCharacter))
-                    && !(PalindromeValidator.isNumericCharacterPair(character, oppositeCharacter) && character == oppositeCharacter)) {
+                    && !(AlphanumericPalindromeValidator.isAlphabeticCharacterPair(character, oppositeCharacter)
+                        && Character.toLowerCase(character) == Character.toLowerCase(oppositeCharacter))
+                    && !(AlphanumericPalindromeValidator.isNumericCharacterPair(character, oppositeCharacter)
+                        && character == oppositeCharacter)) {
                 return false;
             }
 
