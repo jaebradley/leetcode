@@ -1,12 +1,12 @@
 # [Valid Alphanumeric Palindrome](https://leetcode.com/problems/valid-palindrome/description/)
 
 ## Problem ([from Leetcode](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/))
-> Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
-> For example, `A man, a plan, a canal: Panama` is a palindrome but `race a car` is not a palindrome.
+> Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. For example, `A man, a plan, a canal: Panama` is a palindrome but `race a car` is not a palindrome.
 
 ## Discussion
 
 My approach was the following:
+
 1. Start with first and last characters of the input string (keeping track of their respective indices).
 2. While the index of the first character is less than the index of it's "opposite" character...
    a. For both characters, increment / decrement their index if they're not alphanumeric (and first character index is
@@ -19,6 +19,8 @@ My approach was the following:
    c. Increment the first character index and decrement the opposite character index
 3. If able to exit the `while` loop, return `true`
 
+Other discussion points
+
 * I could probably make the helper methods (like `isAlphanumeric`) `private`
 * Open to other (better) names
 * My `if` statement is pretty inelegant / hard to read - move to a helper method perhaps?
@@ -27,11 +29,12 @@ My approach was the following:
 ## Implementation
 
 <!-- language: lang-java -->
+
     public class AlphanumericPalindromeValidator {
         public static boolean isValid(String value) {
             char[] chars = value.toCharArray();
             int i = 0;
-            int j = value.length() - 1 - i;
+            int j = value.length() - 1;
             while (i < j) {
                 char character = chars[i];
                 while (!AlphanumericPalindromeValidator.isAlphanumeric(character) && i < j) {
