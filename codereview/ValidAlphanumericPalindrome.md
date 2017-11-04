@@ -21,6 +21,8 @@ My approach was the following:
 
 * I could probably make the helper methods (like `isAlphanumeric`) `private`
 * Open to other (better) names
+* My `if` statement is pretty inelegant / hard to read - move to a helper method perhaps?
+* Convert the `while`s to `for`s with conditionals?
 
 ## Implementation
 

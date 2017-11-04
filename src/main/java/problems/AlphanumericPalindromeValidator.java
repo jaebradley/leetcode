@@ -20,7 +20,7 @@ public class AlphanumericPalindromeValidator {
     public static boolean isValid(String value) {
         char[] chars = value.toCharArray();
         int i = 0;
-        int j = value.length() - 1 - i;
+        int j = value.length() - 1;
         while (i < j) {
             char character = chars[i];
             while (!AlphanumericPalindromeValidator.isAlphanumeric(character) && i < j) {
