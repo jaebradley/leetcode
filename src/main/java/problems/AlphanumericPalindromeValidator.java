@@ -22,22 +22,14 @@ public class AlphanumericPalindromeValidator {
         int i = 0;
         int j = value.length() - 1;
         while (i < j) {
-            char character = chars[i];
-            while (!AlphanumericPalindromeValidator.isAlphanumeric(character) && i < j) {
+            while (!Character.isLetterOrDigit(chars[i]) && i < j) {
                 i++;
-                character = chars[i];
             }
-            char oppositeCharacter = chars[j];
-            while (!AlphanumericPalindromeValidator.isAlphanumeric(oppositeCharacter) && i < j) {
+            while (!Character.isLetterOrDigit(chars[j]) && i < j) {
                 j--;
-                oppositeCharacter = chars[j];
             }
 
-            if (i < j
-                    && !(AlphanumericPalindromeValidator.isAlphabeticCharacterPair(character, oppositeCharacter)
-                        && Character.toLowerCase(character) == Character.toLowerCase(oppositeCharacter))
-                    && !(AlphanumericPalindromeValidator.isNumericCharacterPair(character, oppositeCharacter)
-                        && character == oppositeCharacter)) {
+            if (Character.toLowerCase(chars[i]) != Character.toLowerCase(chars[j])) {
                 return false;
             }
 
@@ -48,15 +40,11 @@ public class AlphanumericPalindromeValidator {
         return true;
     }
 
-    public static boolean isAlphanumeric(char c) {
-        return Character.isAlphabetic(c) || Character.isDigit(c);
+    public static boolean isAPairOfLetters(char c1, char c2) {
+        return Character.isLetter(c1) && Character.isLetter(c2);
     }
 
-    public static boolean isAlphabeticCharacterPair(char c1, char c2) {
-        return Character.isAlphabetic(c1) && Character.isAlphabetic(c2);
-    }
-
-    public static boolean isNumericCharacterPair(char c1, char c2) {
+    public static boolean isAPairOfNumbers(char c1, char c2) {
         return Character.isDigit(c1) && Character.isDigit(c2);
     }
 }

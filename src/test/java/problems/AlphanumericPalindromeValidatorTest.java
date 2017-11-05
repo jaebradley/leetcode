@@ -41,37 +41,22 @@ public class AlphanumericPalindromeValidatorTest {
     }
 
     @Test
-    public void isAlphanumericForAlphabeticCharacter() {
-        assertTrue(AlphanumericPalindromeValidator.isAlphanumeric('A'));
-    }
-
-    @Test
-    public void isAlphanumericForNumericCharacter() {
-        assertTrue(AlphanumericPalindromeValidator.isAlphanumeric('1'));
-    }
-
-    @Test
-    public void isNotAlphanumeric() {
-        assertFalse(AlphanumericPalindromeValidator.isAlphanumeric(':'));
-    }
-
-    @Test
     public void isAnAlphabeticCharacterPair() {
-        assertTrue(AlphanumericPalindromeValidator.isAlphabeticCharacterPair('A', 'b'));
+        assertTrue(AlphanumericPalindromeValidator.isAPairOfLetters('A', 'b'));
     }
 
     @Test
     public void isNotAnAlphabeticCharacterPair() {
-        assertFalse(AlphanumericPalindromeValidator.isAlphabeticCharacterPair('A', '1'));
+        assertFalse(AlphanumericPalindromeValidator.isAPairOfLetters('A', '1'));
     }
 
     @Test
     public void isNumericCharacterPair() {
-        assertTrue(AlphanumericPalindromeValidator.isNumericCharacterPair('0', '1'));
+        assertTrue(AlphanumericPalindromeValidator.isAPairOfNumbers('0', '1'));
     }
 
     @Test
     public void isNotANumericCharacterPair() {
-        assertFalse(AlphanumericPalindromeValidator.isNumericCharacterPair('A', '1'));
+        assertFalse(AlphanumericPalindromeValidator.isAPairOfNumbers('A', '1'));
     }
 }
