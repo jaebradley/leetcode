@@ -23,8 +23,15 @@ public class ArrayProductExceptSelfCalculatorTest {
     }
 
     @Test
-    public void itShouldReturnCalculateTwoValues() {
+    public void itShouldCalculateForTwoValues() {
         assertArrayEquals(ArrayProductExceptSelfCalculator.calculate(new int[] {0, 1}), new int[] {1, 0});
+    }
+
+    @Test
+    public void itShouldCalculateForNegativeValues() {
+        final int[] values = new int[] { -2, 3, -4, 5 };
+        final int[] expected = new int[] { -60, 40, -30, 24 };
+        assertArrayEquals(ArrayProductExceptSelfCalculator.calculate(values), expected);
     }
 
 }
