@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+ * Given a digit string, return all possible letter combinations that the number could represent.
+ */
+
 public class PhoneNumberLetterCombinations {
     private static char[][] PHONE_NUMBER_LETER_COMBINATIONS = new char[][] {
             new char[] {},
