@@ -2,6 +2,8 @@ package data;
 
 import org.junit.Test;
 
+import java.util.Objects;
+
 import static org.junit.Assert.*;
 
 public class AnotherListNodeTest {
@@ -25,5 +27,16 @@ public class AnotherListNodeTest {
         AnotherListNode node = new AnotherListNode(1);
         AnotherListNode node1 = new AnotherListNode(1);
         assertEquals(node, node1);
+    }
+
+    @Test
+    public void itShouldReturnCorrectHashCode() {
+        AnotherListNode node = new AnotherListNode(1);
+        assertEquals(Objects.hash(1, null), node.hashCode());
+    }
+
+    @Test
+    public void itShouldNotEqualNonNode() {
+        assertNotEquals(new AnotherListNode(1), null);
     }
 }

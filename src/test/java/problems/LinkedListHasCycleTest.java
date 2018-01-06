@@ -4,6 +4,7 @@ import data.AnotherListNode;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class LinkedListHasCycleTest {
@@ -42,5 +43,10 @@ public class LinkedListHasCycleTest {
     @Test
     public void itShouldReturnFalseForHeadWithNullNextNext() {
         assertFalse(LinkedListHasCycle.hasCycle(new AnotherListNode(1, new AnotherListNode(2))));
+    }
+
+    @Test
+    public void itShouldConstruct() {
+        assertNotNull(new LinkedListHasCycle());
     }
 }
