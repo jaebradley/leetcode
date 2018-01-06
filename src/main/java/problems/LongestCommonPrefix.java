@@ -22,7 +22,7 @@ public class LongestCommonPrefix {
             }
         }
 
-        if (strs.length > 1 && !strs[1].startsWith(first)) {
+        if (!strs[1].startsWith(first)) {
             return "";
         }
 

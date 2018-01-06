@@ -19,7 +19,7 @@ public class LongestCommonPrefixTest {
 
     @Test
     public void itShouldReturnEmptyStringForNoCommonPrefix() {
-        String[] values = new String[] { "a", "b" };
+        String[] values = new String[] { "abc", "bcd" };
         assertEquals("", LongestCommonPrefix.longestCommonPrefix(values));
     }
 
