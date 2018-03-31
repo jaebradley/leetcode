@@ -41,18 +41,22 @@ public class OddEvenLinkedList {
     }
 
     public static ListNode oddEvenList(ListNode head) {
-        ListNode currentOdd = head;
-        ListNode evenHead = new ListNode(0);
-        ListNode currentEven = evenHead;
-
-        while (currentOdd.next != null) {
-            currentEven.next = currentOdd.next;
-            currentOdd.next = currentOdd.next.next;
-            currentEven = currentEven.next;
-            currentOdd = currentOdd.next;
+        if (head == null) {
+            return null;
         }
 
-        currentOdd.next = evenHead.next;
+        ListNode currentOdd = head;
+        ListNode evenHead = head.next;
+        ListNode currentEven = evenHead;
+
+        while (currentEven != null && currentEven.next != null) {
+            currentOdd.next = currentEven.next;
+            currentOdd = currentOdd.next;
+            currentEven.next = currentOdd.next;
+            currentEven = currentEven.next;
+        }
+
+        currentOdd.next = evenHead;
 
         return head;
     }
