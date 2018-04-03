@@ -42,6 +42,14 @@ public class DiameterOfBinaryTree {
         TreeNode(int x) { val = x; }
     }
 
+    /**
+     * The maximum diameter of a node is the max depth of the left node and the max depth of the right node, plus 1.
+     *
+     * If this diameter is greater than the global maximum diameter, replace it.
+     *
+     * The maximum depth of a node is the maximum depth of either the left node or the right node, plus 1.
+     */
+
     private int calculateMaxDepth(TreeNode node) {
         if (node == null) {
             return 0;
