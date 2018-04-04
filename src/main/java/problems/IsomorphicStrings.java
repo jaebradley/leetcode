@@ -2,7 +2,6 @@ package problems;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * https://leetcode.com/problems/isomorphic-strings/description/
@@ -36,8 +35,6 @@ public class IsomorphicStrings {
             return false;
         }
 
-        Map<Character, Integer> sCharacterCounts = new HashMap<>();
-        Map<Character, Integer> tCharacterCounts = new HashMap<>();
         Map<Character, Character> characterMapping = new HashMap<>();
 
         for (int i = 0; i < s.length(); i ++) {
@@ -51,21 +48,6 @@ public class IsomorphicStrings {
             }
 
             characterMapping.put(sChar, tChar);
-
-            Integer sCharCount = sCharacterCounts.get(sChar);
-            Integer tCharCount = tCharacterCounts.get(tChar);
-
-            if (!Objects.equals(sCharCount, tCharCount)) {
-                return false;
-            }
-
-            if (sCharCount == null) {
-                sCharacterCounts.put(sChar, 1);
-                tCharacterCounts.put(tChar, 1);
-            } else {
-                sCharacterCounts.put(sChar, sCharCount + 1);
-                tCharacterCounts.put(tChar, tCharCount + 1);
-            }
         }
 
         return true;
