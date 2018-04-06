@@ -39,6 +39,11 @@ package problems;
  */
 
 public class PalindromicSubstrings {
+
+    /**
+     * https://leetcode.com/problems/palindromic-substrings/discuss/105688/Very-Simple-Java-Solution-with-Detail-Explanation
+     * ^ Much better brute force
+     */
     public static int countSubstrings(String s) {
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
