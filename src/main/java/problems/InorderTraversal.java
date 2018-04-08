@@ -41,6 +41,25 @@ public class InorderTraversal {
         TreeNode(int x) { val = x; }
     }
 
+    public static List<Integer> inorderTraversalIterative(TreeNode root) {
+        List<Integer> values = new ArrayList<>();
+        Stack<TreeNode> traversedValues = new Stack<>();
+
+        TreeNode node = root;
+
+        while (node != null || !traversedValues.empty()) {
+            while (node != null) {
+                traversedValues.push(node);
+                node = node.left;
+            }
+            node = traversedValues.pop();
+            values.add(node.val);
+            node = node.right;
+        }
+
+        return values;
+    }
+
     public static List<Integer> inorderTraversalRecursive(TreeNode root) {
         List<Integer> values = new ArrayList<>();
         traverseTreeRecursively(root, values);
