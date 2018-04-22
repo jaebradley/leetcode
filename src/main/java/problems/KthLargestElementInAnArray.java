@@ -32,13 +32,9 @@ public class KthLargestElementInAnArray {
         int pivot = nums[endIndex];
 
         while (lo < hi) {
-            if (nums[lo] > pivot) {
-                swap(nums, lo, hi);
-                lo--;
-                hi--;
+            if (nums[lo++] > pivot) {
+                swap(nums, --lo, --hi);
             }
-
-            lo++;
         }
 
         swap(nums, lo, endIndex);
