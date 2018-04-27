@@ -1,7 +1,6 @@
 package problems;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * https://leetcode.com/problems/course-schedule/description/
@@ -75,5 +74,54 @@ public class CourseSchedule {
         }
 
         return completedCount == numCourses;
+    }
+
+    public static boolean canFinishDFS(int numCourses, int[][] prerequisites) {
+        Map<Integer, Boolean> doesCourseHaveCycle = new HashMap<>();
+        Map<Integer, Set<Integer>> coursePrerequisites = new HashMap<>();
+        for (int[] prerequisite: prerequisites) {
+            Set<Integer> coursePrerequisite = coursePrerequisites.get(prerequisite[0]);
+            if (coursePrerequisite == null) {
+                coursePrerequisite = new HashSet<>();
+            }
+            coursePrerequisite.add(prerequisite[1]);
+            coursePrerequisites.put(prerequisite[0], coursePrerequisite);
+        }
+
+        Set<Integer> currentPath = new HashSet<>();
+        for (int[] prerequisite: prerequisites) {
+            if (hasCycle(doesCourseHaveCycle, coursePrerequisites, currentPath, prerequisite[0])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean hasCycle(Map<Integer, Boolean> doesCourseHaveCycle, Map<Integer, Set<Integer>> coursePrerequisites, Set<Integer> currentPath, int child) {
+        Boolean hasCycle = doesCourseHaveCycle.get(child);
+        if (hasCycle != null) {
+            return hasCycle;
+        }
+
+        if (currentPath.contains(child)) {
+            return true;
+        }
+
+        if (!coursePrerequisites.containsKey(child)) {
+            return false;
+        }
+
+        currentPath.add(child);
+        for (Integer prerequisite: coursePrerequisites.get(child)) {
+            hasCycle = hasCycle(doesCourseHaveCycle, coursePrerequisites, currentPath, prerequisite);
+            doesCourseHaveCycle.put(prerequisite, hasCycle);
+            if (hasCycle) {
+                return true;
+            }
+        }
+
+        currentPath.remove(child);
+        return false;
     }
 }
