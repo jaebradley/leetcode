@@ -1,5 +1,7 @@
 package problems;
 
+import java.util.Stack;
+
 /**
  * https://leetcode.com/problems/validate-binary-search-tree/description/
 
@@ -63,5 +65,29 @@ public class ValidateBinarySearchTree {
                 && isValidBSTRecursiveHelper(root.right, root.val, max);
 
 
+    }
+
+    public static boolean isValidBSTIterative(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        Stack<TreeNode> nodes = new Stack<>();
+        TreeNode previousNode = null;
+        while (!nodes.isEmpty() || root != null) {
+            while (root != null) {
+                nodes.push(root);
+                root = root.left;
+            }
+
+            root = nodes.pop();
+            if (previousNode != null && root.val <= previousNode.val) {
+                return false;
+            }
+            previousNode = root;
+            root = root.right;
+        }
+
+        return true;
     }
 }
