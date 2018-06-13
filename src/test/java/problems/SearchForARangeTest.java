@@ -16,4 +16,9 @@ public class SearchForARangeTest {
     public void canFindRange() {
         assertArrayEquals(SearchForARange.searchRange(new int[] {5, 7, 7, 8, 8, 10 }, 8), new int[] { 3, 4 });
     }
+
+    @Test
+    public void canFindRangeForSingleElement() {
+        assertArrayEquals(SearchForARange.searchRange(new int[] { 1 }, 1), new int[] { 0, 0 });
+    }
 }

@@ -36,11 +36,12 @@ public class SearchForARange {
         }
         int startingIndex = matchingIndex;
         int endingIndex = matchingIndex;
-        while (nums[startingIndex - 1] == target) {
+
+        while (startingIndex > 0 && nums[startingIndex - 1] == target) {
             startingIndex--;
         }
 
-        while (nums[endingIndex + 1] == target) {
+        while (endingIndex < nums.length - 1 && nums[endingIndex + 1] == target) {
             endingIndex++;
         }
 
