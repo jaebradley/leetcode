@@ -30,6 +30,13 @@ import java.util.List;
  */
 
 public class GenerateParenthesis {
+
+    /**
+     * When the open parentheses count is greater than zero, can add (
+     * When the open parentheses count is less than the close parentheses count, can add )
+     * When both the open and close parentheses count is 0, then add the string result to the list of results
+     */
+
     public static List<String> generateParenthesis(int n) {
         List<String> results = new ArrayList<>();
 
