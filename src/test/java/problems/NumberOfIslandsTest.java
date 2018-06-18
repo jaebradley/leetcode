@@ -34,4 +34,15 @@ public class NumberOfIslandsTest {
         };
         assertEquals(3, NumberOfIslands.numIslands(grid));
     }
+
+    @Test
+    public void oneIslandForGridWithOneConnectedPieceOfLand() {
+        char[][] grid = new char[][] {
+                new char[] {'1', '1', '1', '1', '0'},
+                new char[] {'1', '1', '0', '1', '0'},
+                new char[] {'1', '1', '0', '0', '0'},
+                new char[] {'0', '0', '0', '0', '0'},
+        };
+        assertEquals(1, NumberOfIslands.numIslands(grid));
+    }
 }
