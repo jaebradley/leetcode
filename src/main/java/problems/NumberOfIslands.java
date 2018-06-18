@@ -55,6 +55,8 @@ public class NumberOfIslands {
             return;
         }
 
+        grid[x][y] = '0';
+
         drownIslands(x - 1, y, grid);
         drownIslands(x + 1, y, grid);
         drownIslands(x, y - 1, grid);
