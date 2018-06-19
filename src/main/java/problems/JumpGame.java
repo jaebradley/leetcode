@@ -58,6 +58,14 @@ public class JumpGame {
         return canReachEndFromIndex[0];
     }
 
+    /**
+     * The idea is to keep track of the maximum reachable index as one iterates through the indices of the array.
+     * If an unreachable index is found (i.e. the index is greater than the maximum reachable index calculated) then
+     * return false.
+     *
+     * Else, if able to reach all array indices, return true.
+     */
+
     public static boolean canJump2(int[] nums) {
         int reachable = 0;
         for (int i = 0; i < nums.length; ++i) {
