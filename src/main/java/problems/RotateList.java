@@ -8,6 +8,10 @@ public class RotateList {
     }
 
     public static ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
         int length = 0;
         ListNode currentNode = head;
         ListNode tail = currentNode;
@@ -20,7 +24,7 @@ public class RotateList {
         tail.next = head;
 
         currentNode = head;
-        for (int i = 0; i < k % length; i++) {
+        for (int i = 0; i < (length - k % length); i++) {
             tail = currentNode;
             currentNode = currentNode.next;
         }
