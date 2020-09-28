@@ -28,20 +28,20 @@ import java.util.stream.Collectors;
  * 2. Zig-Zag is just reversing the order every-other level
  */
 
-class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode() {}
-     TreeNode(int val) { this.val = val; }
-     TreeNode(int val, TreeNode left, TreeNode right) {
-         this.val = val;
-         this.left = left;
-         this.right = right;
-     }
- }
-
 public class BinaryTreeZigZagLevelOrderTraversal {
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> results = new ArrayList<>();
 

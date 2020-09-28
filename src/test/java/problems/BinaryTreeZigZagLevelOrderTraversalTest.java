@@ -1,6 +1,7 @@
 package problems;
 
 import org.junit.Test;
+import problems.BinaryTreeZigZagLevelOrderTraversal.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
