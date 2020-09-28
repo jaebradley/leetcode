@@ -1,0 +1,34 @@
+name: Leetcode
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    - cron: '0 12 * * *'
+
+jobs:
+  build:
+    name: Test & Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '13'
+          java-package: jdk
+          architecture: x64
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: build
+      - name: Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: './build/reports/jacoco/test/html/index.html'

@@ -32,10 +32,4 @@ public class LongestCommonPrefixTest {
     public void itShouldReturnEmptyStringForEmpty() {
         assertEquals("", LongestCommonPrefix.longestCommonPrefix(new String[] {}));
     }
-
-    @Test
-    public void itShouldReturnOnlyString() {
-        String[] values = new String[] { "jaebaebae" };
-        assertEquals("jaebaebae", LongestCommonPrefix.longestCommonPrefix(values));
-    }
 }
