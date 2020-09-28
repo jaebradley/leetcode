@@ -30,3 +30,5 @@ jobs:
           arguments: build
       - name: Codecov
         uses: codecov/codecov-action@v1
+        with:
+          file: './build/reports/jacoco/test/html/index.html'
