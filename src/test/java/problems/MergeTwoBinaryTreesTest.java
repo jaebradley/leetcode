@@ -3,6 +3,7 @@ package problems;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static problems.MergeTwoBinaryTrees.*;
 
 public class MergeTwoBinaryTreesTest {
     @Test
