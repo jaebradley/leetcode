@@ -17,15 +17,16 @@ package problems;
  *    merged list and then that node should be incremented
  */
 
-class ListNode {
-  int val;
-  ListNode next;
-  ListNode() {}
-  ListNode(int val) { this.val = val; }
-  ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-}
 
 public class MergeTwoSortedLists {
+  public static class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+  }
+
   public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     ListNode merged = new ListNode();
     ListNode head = merged;

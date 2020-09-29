@@ -1,7 +1,7 @@
 package problems;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import problems.MergeTwoSortedLists.ListNode;
 
 import static org.junit.Assert.*;
 
