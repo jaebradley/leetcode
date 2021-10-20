@@ -1,6 +1,8 @@
 package problems._1559;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Stream;
 
@@ -47,7 +49,7 @@ import java.util.stream.Stream;
  * grid consists only of lowercase English letters.
  */
 
-public class Solution {
+public class IterativeSolution {
     private static class Cell {
         private final int verticalIndex;
         private final int horizontalIndex;
@@ -111,40 +113,43 @@ public class Solution {
     }
 
     public boolean containsCycle(char[][] grid) {
-        final int[][] visited = new int[grid.length][grid[0].length];
-
+        final Set<Cell> visitedCells = new HashSet<>();
         final Stack<Tuple> cells = new Stack<>();
-        cells.push(new Tuple(new Cell(0, 0), new Cell(0, 0)));
 
-        while (!cells.empty()) {
-            final Tuple pair = cells.pop();
-            {
-                final char value1 = grid[pair.getValue1().getVerticalIndex()][pair.getValue1().getHorizontalIndex()];
-                final char value2 = grid[pair.getValue2().getVerticalIndex()][pair.getValue2().getHorizontalIndex()];
-                final int visitedCount1 = visited[pair.getValue1().getVerticalIndex()][pair.getValue1().getHorizontalIndex()];
-                final int visitedCount2 = visited[pair.getValue2().getVerticalIndex()][pair.getValue2().getHorizontalIndex()];
-                if (value1 == value2 && (visitedCount1 - visitedCount2) >= 3) {
-                    return true;
+        for (int verticalIndex = 0; verticalIndex < grid.length; verticalIndex += 1) {
+            for (int horizontalIndex = 0; horizontalIndex < grid[verticalIndex].length; horizontalIndex += 1) {
+                final Cell cell = new Cell(verticalIndex, horizontalIndex);
+                if (!visitedCells.contains(cell)) {
+                    cells.push(new Tuple(cell, null));
+                    while (!cells.empty()) {
+                        final Tuple pair = cells.pop();
+                        if (visitedCells.contains(pair.getValue1())) {
+                            return true;
+                        }
+                        Stream.of(
+                                        new Cell(pair.getValue1().getVerticalIndex() - 1, pair.getValue1().getHorizontalIndex()),
+                                        new Cell(pair.getValue1().getVerticalIndex(), pair.getValue1().getHorizontalIndex() - 1),
+                                        new Cell(pair.getValue1().getVerticalIndex() + 1, pair.getValue1().getHorizontalIndex()),
+                                        new Cell(pair.getValue1().getVerticalIndex(), pair.getValue1().getHorizontalIndex() + 1)
+                                )
+                                .filter(nextCell -> 0 <= nextCell.getVerticalIndex() && 0 <= nextCell.getHorizontalIndex())
+                                .filter(nextCell -> grid.length > nextCell.getVerticalIndex() && grid[nextCell.getVerticalIndex()].length > nextCell.getHorizontalIndex())
+                                .filter(nextCell -> !nextCell.equals(pair.getValue2()))
+                                .filter(nextCell -> !visitedCells.contains(nextCell))
+                                .filter(nextCell -> grid[pair.getValue1().getVerticalIndex()][pair.getValue1().getHorizontalIndex()] == grid[nextCell.getVerticalIndex()][nextCell.getHorizontalIndex()])
+                                .forEach(
+                                        nextCell -> cells.push(
+                                                new Tuple(
+                                                        nextCell,
+                                                        pair.getValue1()
+                                                )
+                                        )
+                                );
+
+                        visitedCells.add(pair.getValue1());
+                    }
                 }
             }
-            Stream.of(
-                            new Cell(pair.getValue1().getVerticalIndex() - 1, pair.getValue1().getHorizontalIndex()),
-                            new Cell(pair.getValue1().getVerticalIndex(), pair.getValue1().getHorizontalIndex() - 1),
-                            new Cell(pair.getValue1().getVerticalIndex() + 1, pair.getValue1().getHorizontalIndex()),
-                            new Cell(pair.getValue1().getVerticalIndex(), pair.getValue1().getHorizontalIndex() + 1)
-                    )
-                    .filter(nextCell -> 0 <= nextCell.getVerticalIndex() && 0 <= nextCell.getHorizontalIndex())
-                    .filter(nextCell -> grid.length > nextCell.getVerticalIndex() && grid[nextCell.getVerticalIndex()].length > nextCell.getHorizontalIndex())
-                    .forEach(
-                            nextCell -> cells.push(
-                                    new Tuple(
-                                            nextCell,
-                                            pair.getValue1()
-                                    )
-                            )
-                    );
-
-            visited[pair.getValue1().getVerticalIndex()][pair.getValue1().getHorizontalIndex()] += 1;
         }
 
         return false;
