@@ -12,7 +12,7 @@ public class TreeNodeTest {
 
     @Test
     public void itShouldReturnValuesViaGetters() {
-        assertEquals(1, node.getValue());
+        assertEquals(1, node.getVal());
         assertEquals(null, node.getLeft());
         assertEquals(null, node.getRight());
     }
@@ -44,6 +44,6 @@ public class TreeNodeTest {
 
     @Test
     public void testHashCodeValue() {
-        assertEquals(Objects.hash(node.getValue(), node.getLeft(), node.getRight()), node.hashCode());
+        assertEquals(Objects.hash(node.getVal(), node.getLeft(), node.getRight()), node.hashCode());
     }
 }

@@ -25,7 +25,7 @@ public class BinaryTreesMerger {
             return null;
         }
 
-        return new TreeNode(tree1.getValue() + tree2.getValue(),
+        return new TreeNode(tree1.getVal() + tree2.getVal(),
                 merge(tree1.getLeft(), tree2.getLeft()),
                 merge(tree1.getRight(), tree2.getRight())
         );

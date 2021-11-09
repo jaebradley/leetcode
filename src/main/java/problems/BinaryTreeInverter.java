@@ -29,6 +29,6 @@ public class BinaryTreeInverter {
             return null;
         }
 
-        return new TreeNode(root.getValue(), createInvertedTree(root.getRight()), createInvertedTree(root.getLeft()));
+        return new TreeNode(root.getVal(), createInvertedTree(root.getRight()), createInvertedTree(root.getLeft()));
     }
 }

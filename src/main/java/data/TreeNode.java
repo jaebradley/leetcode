@@ -3,18 +3,20 @@ package data;
 import java.util.Objects;
 
 public class TreeNode {
-    private final int value;
-    private final TreeNode left;
-    private final TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
-    public TreeNode(final int value, final TreeNode left, final TreeNode right) {
-        this.value = value;
+    public TreeNode(int val) { this.val = val; }
+
+    public TreeNode(final int val, final TreeNode left, final TreeNode right) {
+        this.val = val;
         this.left = left;
         this.right = right;
     }
 
-    public int getValue() {
-        return value;
+    public int getVal() {
+        return val;
     }
 
     public TreeNode getLeft() {
@@ -27,7 +29,7 @@ public class TreeNode {
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, left, right);
+        return Objects.hash(val, left, right);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class TreeNode {
 
         TreeNode treeNode = (TreeNode) obj;
 
-        return Objects.equals(value, treeNode.value)
+        return Objects.equals(val, treeNode.val)
                 && Objects.equals(left, treeNode.left)
                 && Objects.equals(right, treeNode.right);
     }
