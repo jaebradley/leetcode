@@ -66,64 +66,47 @@ public class Solution {
         }
     }
 
-    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
-        final int[] indexByPreorderValue = new int[preorder.length + 1];
-        for (int index = 0; index < preorder.length; index += 1) {
-            indexByPreorderValue[preorder[index]] = index;
-        }
-
-        final int[] indexByPostorderValue = new int[postorder.length + 1];
-        for (int index = 0; index < postorder.length; index += 1) {
-            indexByPostorderValue[postorder[index]] = index;
-        }
-
-        return helper(
-                0,
-                preorder.length - 1,
-                postorder.length - 1,
-                indexByPreorderValue,
-                preorder,
-                postorder
-        );
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        return constructFromPrePost(pre, 0, pre.length - 1, post, 0, pre.length - 1);
     }
 
-    private static TreeNode helper(
-            int preorderStartIndex,
-            int preorderEndIndex,
-            int postorderEndIndex,
-            int[] indexByPreorderValue,
-            int[] preorder,
-            int[] postorder
-    ) {
-        if (preorderStartIndex > preorderEndIndex) {
+    private TreeNode constructFromPrePost(int[] pre, int preStart, int preEnd, int[] post, int postStart, int postEnd) {
+        // Base cases.
+        if (preStart > preEnd) {
             return null;
         }
-
-        final TreeNode node = new TreeNode(preorder[preorderStartIndex]);
-
-        if (preorderStartIndex < preorderEndIndex) {
-            final int leftSubtreePreorderIndex = preorderStartIndex + 1;
-            final int rightSubtreeValue = postorder[postorderEndIndex - 1];
-            final int rightSubtreePreorderIndex = indexByPreorderValue[rightSubtreeValue];
-
-            node.left = helper(
-                    leftSubtreePreorderIndex,
-                    rightSubtreePreorderIndex - 1,
-                    postorderEndIndex - 1,
-                    indexByPreorderValue,
-                    preorder,
-                    postorder
-            );
-            node.right = helper(
-                    rightSubtreePreorderIndex,
-                    preorderEndIndex,
-                    postorderEndIndex - 1,
-                    indexByPreorderValue,
-                    preorder,
-                    postorder
-            );
+        if (preStart == preEnd) {
+            return new TreeNode(pre[preStart]);
         }
 
-        return node;
+        // Build root.
+        TreeNode root = new TreeNode(pre[preStart]);
+
+        // Locate left subtree.
+        int leftSubRootInPre = preStart + 1;
+        int leftSubRootInPost = findLeftSubRootInPost(pre[leftSubRootInPre], post, postStart, postEnd);
+        int leftSubEndInPre = leftSubRootInPre + (leftSubRootInPost - postStart);
+
+        // Divide.
+        TreeNode leftSubRoot = constructFromPrePost(pre, leftSubRootInPre, leftSubEndInPre,
+                post, postStart, leftSubRootInPost);
+        TreeNode rightSubRoot = constructFromPrePost(pre, leftSubEndInPre + 1, preEnd,
+                post, leftSubRootInPost + 1, postEnd - 1);
+
+        // Conquer.
+        root.left = leftSubRoot;
+        root.right = rightSubRoot;
+
+        return root;
+    }
+
+    private int findLeftSubRootInPost(int leftSubRootVal, int[] post, int postStart, int postEnd) {
+        for (int i = postStart; i <= postEnd; i++) {
+            if (post[i] == leftSubRootVal) {
+                return i;
+            }
+        }
+
+        throw new IllegalArgumentException();
     }
 }
