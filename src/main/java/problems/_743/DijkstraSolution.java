@@ -15,7 +15,7 @@ import java.util.*;
  * For current node, identify neighbors, calculate time cost to go to neighboring nodes, and add to priority queue
  */
 
-public class Solution {
+public class DijkstraSolution {
     public static class NodeTravelCost {
         private final int cost;
         private final int node;

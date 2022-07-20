@@ -2,12 +2,12 @@ package problems._743;
 
 import junit.framework.TestCase;
 
-public class SolutionTest extends TestCase {
+public class DijkstraSolutionTest extends TestCase {
 
     public void test() {
         assertEquals(
                 2,
-                new Solution().networkDelayTime(
+                new DijkstraSolution().networkDelayTime(
                         new int[][]{
                                 new int[]{2, 1, 1},
                                 new int[]{2, 3, 1},
@@ -20,7 +20,7 @@ public class SolutionTest extends TestCase {
 
         assertEquals(
                 1,
-                new Solution().networkDelayTime(
+                new DijkstraSolution().networkDelayTime(
                         new int[][]{
                                 new int[]{1, 2, 1}
                         },
@@ -31,7 +31,7 @@ public class SolutionTest extends TestCase {
 
         assertEquals(
                 -1,
-                new Solution().networkDelayTime(
+                new DijkstraSolution().networkDelayTime(
                         new int[][]{
                                 new int[]{1, 2, 1}
                         },
