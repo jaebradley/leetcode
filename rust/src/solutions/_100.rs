@@ -39,7 +39,7 @@ impl Solution {
             }
             None => {
                 match q {
-                    Some(y) => {
+                    Some(_y) => {
                         false
                     }
                     None => {
