@@ -9,7 +9,7 @@ on:
     - cron: '0 12 * * *'
 
 jobs:
-  build:
+  java:
     name: Test & Build
     runs-on: ${{ matrix.os }}
     strategy:
@@ -30,3 +30,16 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           file: './build/reports/jacoco/test/html/index.html'
+  python:
+    runs-on: macos-latest
+    name: Unit Tests
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v4 
+      with:
+        python-version: '3.9'
+    - name: Run build
+      run: bash ./python/_3/build.sh
+      shell: bash
