@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "leetcode"
+version = "0.1.0"
+description = "Leetcode solutions in Python3"
+authors = ["Jae Bradley <jae.b.bradley@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
