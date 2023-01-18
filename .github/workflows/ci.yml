@@ -25,7 +25,7 @@ jobs:
           java-version: 17
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn --batch-mode clean verify
+        run: mvn -f ./java/pom.xml --batch-mode clean verify
       - name: Codecov
         uses: codecov/codecov-action@v1
         with:
