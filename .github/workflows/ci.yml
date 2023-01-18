@@ -41,5 +41,6 @@ jobs:
       with:
         python-version: '3.9'
     - name: Run build
-      run: bash ./python/_3/build.sh
+      # TODO: @jbradley replace this with a build script that introspects the project for build scripts, pushd-ing to their directories, executing the build script, and then popd-ing back to the original execution directory
+      run: pushd ./python/_3/ && bash ./build.sh && popd
       shell: bash
