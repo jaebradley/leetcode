@@ -9,19 +9,6 @@ You must write an algorithm that runs in O(n) time.
 from typing import List
 
 
-class UnionFind:
-    def __init__(self, values):
-        self.root_by_values = dict(map(lambda value: [value, value], values))
-
-    def find_root(self, value):
-        root = self.root_by_values[value]
-        if root != value:
-            root = self.find_root(root)
-
-        self.root_by_values[value] = root
-        return root
-
-
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         longest_streak = 0
