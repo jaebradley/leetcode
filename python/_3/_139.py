@@ -42,3 +42,27 @@ class BFSSolution:
             visited.add(starting_index)
 
         return False
+
+
+class DPSolution:
+    """
+    Builds off the idea of a recursive solution - if the original string can be split into s1 and s2
+    where s1 contains substrings that are in the dictionary and s2 contains substrings that are in the dictionary
+    then the original string s is a valid word.
+
+    Note that each of s1 and s2 can have the same solution / idea applied to them.
+
+
+    """
+
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dictionary = set(wordDict)
+        valid_prefix_ending_indices = [False] * (len(s) + 1)
+        valid_prefix_ending_indices[0] = True
+
+        for ending_index in range(1, len(s) + 1):
+            for starting_index in range(ending_index):
+                if valid_prefix_ending_indices[starting_index] and s[starting_index:ending_index] in dictionary:
+                    valid_prefix_ending_indices[ending_index] = True
+
+        return valid_prefix_ending_indices[len(s)]
