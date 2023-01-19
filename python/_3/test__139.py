@@ -1,10 +1,20 @@
-from unittest import TestCase
+import pytest
 
-from _139 import BFSSolution
+from _139 import BFSSolution, DPSolution
 
 
-class TestSolution(TestCase):
-    def test_word_break(self):
-        self.assertTrue(BFSSolution().wordBreak("leetcode", ["leet", "code"]))
-        self.assertTrue(BFSSolution().wordBreak("applepenapple", ["apple", "pen"]))
-        self.assertFalse(BFSSolution().wordBreak("catsandog", ["cats", "dog", "sand", "and", "cat"]))
+class TestSolution:
+
+    @pytest.mark.parametrize(
+        "inputs, expected",
+        [
+            (["leetcode", ["leet", "code"]], True),
+            (["applepenapple", ["apple", "pen"]], True),
+            (["catsandog", ["cats", "dog", "sand", "and", "cat"]], False)
+        ])
+    def test(self, inputs, expected):
+        for executor in [
+            BFSSolution().wordBreak,
+            DPSolution().wordBreak
+        ]:
+            assert expected == executor(*inputs)
