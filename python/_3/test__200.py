@@ -1,6 +1,6 @@
 import pytest
 
-from _200 import DfsSolution
+from _200 import DfsSolution, UnionFindSolution
 
 
 class TestSolution:
@@ -10,6 +10,13 @@ class TestSolution:
             ([], 0),
             ([["1"]], 1),
             ([["1", "0"]], 1),
+            ([["1"], ["1"]], 1),
+            ([
+                 ["1", "0", "1", "1", "1"],
+                 ["1", "0", "1", "0", "1"],
+                 ["1", "1", "1", "0", "1"]
+             ],
+             1),
             ([["1", "0"], ["0", "1"]], 2),
             ([
                  ["1", "1", "1", "1", "0"],
@@ -27,4 +34,8 @@ class TestSolution:
              3)
         ])
     def test(self, input, expected):
-        assert expected == DfsSolution().numIslands(input)
+        for solution in [
+            DfsSolution(),
+            UnionFindSolution()
+        ]:
+            assert solution.numIslands(input) == expected

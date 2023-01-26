@@ -17,6 +17,9 @@ class DfsSolution:
     and DFS that node.
 
     Number of islands is the island count after DFSing all nodes.
+
+    Runtime: O(number of nodes) - each node should only be visited once
+    Space: O(number of nodes) - each node could be added to the visited nodes set once
     """
 
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -47,3 +50,57 @@ class DfsSolution:
             for next_column_index in range(minimum_next_column_index, maximum_next_column_index):
                 if "1" == grid[row_index][next_column_index]:
                     self.dfs(row_index, next_column_index, grid, visited_nodes)
+
+
+class UnionFindSolution:
+    """
+    Iterate over grid and set each node as the parent of itself.
+    Calculate the connected components by unioning with the first land node north, east, south, or west.
+    Return the distinct counts of parents.
+    """
+
+    class UnionFind:
+        def __init__(self, nodes):
+            self.parents_by_node = dict(map(lambda node: [node, node], range(0, nodes)))
+
+        def find(self, node):
+            parent = self.parents_by_node[node]
+            if parent == node:
+                return node
+
+            parent = self.find(parent)
+            self.parents_by_node[node] = parent
+            return parent
+
+        def union(self, first, second):
+            first_parent = self.find(first)
+            second_parent = self.find(second)
+            if first_parent != second_parent:
+                self.parents_by_node[first_parent] = second_parent
+                return True
+
+            return False
+
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if 0 == len(grid):
+            return 0
+
+        cell_count = len(grid) * len(grid[0])
+        union_find = UnionFindSolution.UnionFind(cell_count)
+        island_count = 0
+        for row_index, row in enumerate(grid):
+            for column_index, cell in enumerate(grid[row_index]):
+                if "1" == cell:
+                    island_count += 1
+                    for next_row_index_modifier, next_column_index_modifier in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                        next_row_index = row_index + next_row_index_modifier
+                        next_column_index = column_index + next_column_index_modifier
+                        if 0 <= next_row_index < len(grid) \
+                                and 0 <= next_column_index < len(grid[0]) \
+                                and "1" == grid[next_row_index][next_column_index] \
+                                and union_find.union(
+                            (row_index * len(grid[0])) + column_index,
+                            (next_row_index * len(grid[0])) + next_column_index):
+                            island_count -= 1
+
+        return island_count
