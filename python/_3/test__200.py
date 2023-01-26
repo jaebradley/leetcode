@@ -1,6 +1,6 @@
 import pytest
 
-from _200 import DfsSolution, UnionFindSolution
+from _200 import DfsSolution, UnionFindSolution, BfsSolution
 
 
 class TestSolution:
@@ -36,6 +36,7 @@ class TestSolution:
     def test(self, input, expected):
         for solution in [
             DfsSolution(),
-            UnionFindSolution()
+            UnionFindSolution(),
+            BfsSolution()
         ]:
             assert solution.numIslands(input) == expected

@@ -2,6 +2,7 @@
 https://leetcode.com/problems/number-of-islands/
 """
 
+from collections import deque
 from typing import List
 
 
@@ -102,5 +103,31 @@ class UnionFindSolution:
                             (row_index * len(grid[0])) + column_index,
                             (next_row_index * len(grid[0])) + next_column_index):
                             island_count -= 1
+
+        return island_count
+
+
+class BfsSolution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        visited_nodes = set([])
+        queue = deque([])
+        island_count = 0
+        for row_index, row in enumerate(grid):
+            for column_index, cell in enumerate(row):
+                if "1" == cell and (row_index, column_index) not in visited_nodes:
+                    island_count += 1
+                    queue.append((row_index, column_index))
+                    while 0 < len(queue):
+                        coordinates = queue.popleft()
+                        if coordinates not in visited_nodes:
+                            visited_nodes.add(coordinates)
+                            for next_row_index_modifier, next_column_index_modifier in [(-1, 0), (1, 0), (0, -1),
+                                                                                        (0, 1)]:
+                                next_row_index = coordinates[0] + next_row_index_modifier
+                                next_column_index = coordinates[1] + next_column_index_modifier
+                                if 0 <= next_row_index < len(grid) \
+                                        and 0 <= next_column_index < len(grid[next_row_index]) \
+                                        and "1" == grid[next_row_index][next_column_index]:
+                                    queue.append((next_row_index, next_column_index))
 
         return island_count
