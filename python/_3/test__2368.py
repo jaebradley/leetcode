@@ -1,6 +1,6 @@
 import pytest
 
-from _2368 import Solution
+from _2368 import BFSSolution, DFSSolution
 
 
 class TestSolution:
@@ -11,4 +11,5 @@ class TestSolution:
             ([7, [[0, 1], [0, 2], [0, 5], [0, 4], [3, 2], [6, 5]], [4, 2, 1]], 3),
         ])
     def test(self, inputs, expected):
-        assert Solution().reachableNodes(*inputs) == expected
+        for Solution in [DFSSolution(), BFSSolution()]:
+            assert Solution.reachableNodes(*inputs) == expected
