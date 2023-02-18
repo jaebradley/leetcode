@@ -2,6 +2,7 @@
 https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/
 """
 import sys
+from collections import deque
 from typing import List
 
 
@@ -46,5 +47,39 @@ class UnionFindSolution:
             if starting_node_parent == union_find.find_parent(first_node) \
                     or starting_node_parent == union_find.find_parent(second_node):
                 minimum_score = min(minimum_score, distance)
+
+        return minimum_score
+
+
+class BfsSolution:
+    """
+    Build adjacency list of all nodes with road distance.
+    Start with node 1.
+    Iterate until queue is empty (this means all nodes in the connected component containing 1 have been iterated over).
+    Keep track of visited nodes (to avoid cycles).
+    For each node that is visited, check to see if the distance to travel to that node is less than the current minimum seen (start with max value integer).
+    """
+
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+        adjacency_list = {}
+        for (first, second, distance) in roads:
+            first_neighbors = adjacency_list.get(first, set([]))
+            first_neighbors.add((second, distance))
+            adjacency_list[first] = first_neighbors
+
+            second_neighbors = adjacency_list.get(second, set([]))
+            second_neighbors.add((first, distance))
+            adjacency_list[second] = second_neighbors
+
+        minimum_score = sys.maxsize
+        queue = deque([1])
+        visited = set([])
+        while queue:
+            current_node = queue.pop()
+            visited.add(current_node)
+            for (neighbor, distance) in adjacency_list.get(current_node, set([])):
+                if neighbor not in visited:
+                    minimum_score = min(minimum_score, distance)
+                    queue.append(neighbor)
 
         return minimum_score

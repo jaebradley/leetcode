@@ -1,6 +1,6 @@
 import pytest
 
-from _2492 import UnionFindSolution
+from _2492 import UnionFindSolution, BfsSolution
 
 
 class TestSolution:
@@ -22,4 +22,5 @@ class TestSolution:
             ([4, [[1, 2, 2], [1, 3, 4], [3, 4, 7]]], 2)
         ])
     def test(self, inputs, expected):
-        assert expected == UnionFindSolution().minScore(*inputs)
+        for solution in [UnionFindSolution(), BfsSolution()]:
+            assert expected == solution.minScore(*inputs)
