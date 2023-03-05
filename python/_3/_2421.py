@@ -20,5 +20,12 @@ class Solution:
     * If a path is a good path for X, it will also be a good path for all starting / end values within the same path that have the same value
     * Values on a path are in the same connected component
     * Keep track of distinct values (and their frequency) for each connected component
+
+    good path(start, end) = (good path(start - 1, end) and val(start - 1) == val(start))
+        or good path(start, end - 1) and val(end - 1) == val(end))
+        or (good path(start - 1, end - 1) and val(start) == val(end) and val(start) >= val(start - 1)
+
+    good path for same node start and end is true, else all other combinations are false
+    
     """
     def numberOfGoodPaths(self, vals: List[int], edges: List[List[int]]) -> int:
