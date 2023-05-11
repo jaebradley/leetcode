@@ -2,6 +2,9 @@
 https://leetcode.com/problems/smallest-subtree-with-all-the-deepest-nodes/description/
 """
 
+from collections import deque
+from typing import Optional
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -40,3 +43,42 @@ class RecursiveSolution:
             return 1 + right_depth, right_subtree
 
         return 1 + left_depth, root
+
+
+class BfsSolution:
+    def lowest_common_ancestor(self, root: TreeNode, first: TreeNode, second: TreeNode) -> Optional[TreeNode]:
+        if None is root or root == first or root == second:
+            return root
+
+        left_subtree_ancestor = self.lowest_common_ancestor(root.left, first, second)
+        right_subtree_ancestor = self.lowest_common_ancestor(root.right, first, second)
+
+        if left_subtree_ancestor is not None and right_subtree_ancestor is not None:
+            return root
+
+        if right_subtree_ancestor is not None:
+            return right_subtree_ancestor
+
+        return left_subtree_ancestor
+
+    def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
+        q = deque([root])
+        left_most_node = root
+        right_most_node = root
+        while q:
+            size = len(q)
+            for i in range(size):
+                current_node = q.pop()
+                if 0 == i:
+                    left_most_node = current_node
+
+                if i == (size - 1):
+                    right_most_node = current_node
+
+                if current_node.left:
+                    q.appendleft(current_node.left)
+
+                if current_node.right:
+                    q.appendleft(current_node.right)
+
+        return self.lowest_common_ancestor(root, left_most_node, right_most_node)

@@ -1,6 +1,6 @@
 import pytest
 
-from _865 import RecursiveSolution, TreeNode
+from _865 import RecursiveSolution, TreeNode, BfsSolution
 
 
 class TestSolution:
@@ -47,4 +47,5 @@ class TestSolution:
             )
         ])
     def test(self, input, expected):
-        assert expected == RecursiveSolution().subtreeWithAllDeepest(input)
+        for solution in [RecursiveSolution(), BfsSolution()]:
+            assert expected == solution.subtreeWithAllDeepest(input)
