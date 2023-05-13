@@ -1,6 +1,6 @@
 import pytest
 
-from _257 import Solution, TreeNode
+from _257 import BfsSolution, DfsSolution, TreeNode
 
 
 class TestSolution:
@@ -12,7 +12,11 @@ class TestSolution:
                 1,
                 TreeNode(2, None, TreeNode(5)),
                 TreeNode(3)),
-             ["1->2->5", "1-> 3"]),
+             ["1->2->5", "1->3"]),
         ])
     def test(self, input, expected):
-        assert expected.sort() == Solution().binaryTreePaths(input).sort()
+        for solution in [DfsSolution(), BfsSolution()]:
+            expected.sort()
+            paths = solution.binaryTreePaths(input)
+            paths.sort()
+            assert expected == paths

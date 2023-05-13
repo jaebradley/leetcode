@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Optional, List
+from typing import Optional, List, Set
 
 
 # Definition for a binary tree node.
@@ -10,7 +10,7 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
+class BfsSolution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
         paths = []
         if root is not None:
@@ -28,3 +28,20 @@ class Solution:
                             q.append([current_node.right, path + "->" + str(current_node.right.val)])
 
         return paths
+
+
+class DfsSolution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        paths = set([])
+        self.helper(root, str(root.val), paths)
+        return list(paths)
+
+    def helper(self, root: Optional[TreeNode], current_path: str, paths: Set[str]):
+        if root is not None:
+            if root.left is None and root.right is None:
+                paths.add(current_path)
+            else:
+                if root.left is not None:
+                    self.helper(root.left, current_path + "->" + str(root.left.val), paths)
+                if root.right is not None:
+                    self.helper(root.right, current_path + "->" + str(root.right.val), paths)
