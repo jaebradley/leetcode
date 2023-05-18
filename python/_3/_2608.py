@@ -5,6 +5,58 @@ https://leetcode.com/problems/shortest-cycle-in-a-graph/
 from typing import List, Dict, Set
 
 
+class BfsSolution:
+    """
+    Create adjacency list from the n value and the edges
+    Map<Starting Node, Set<Adjacent Node>>
+
+    Keep a visited edges set.
+
+    For each starting node, add the node to a queue.
+    For each adjacent node, mark both directed edges as traversed.
+    Keep track of level count
+    """
+
+    def findShortestCycle(self, n: int, edges: List[List[int]]) -> int:
+        shortest_cycle_length = float("inf")
+
+        adjacency_list = dict(map(lambda v: [v, set([])], range(n)))
+        for first_node, second_node in edges:
+            adjacency_list.get(first_node).add(second_node)
+            adjacency_list.get(second_node).add(first_node)
+
+        for starting_node in range(n):
+            shortest_cycle_length = min(shortest_cycle_length,
+                                        self.bfs(adjacency_list, n, starting_node))
+
+        return -1 if float("inf") == shortest_cycle_length else shortest_cycle_length
+
+    def bfs(self, adjacency_list, n, starting_node):
+        local_minimum = float("inf")
+        distance_from_starting_node = [float("inf")] * n
+        distance_from_starting_node[starting_node] = 0
+        nodes = [starting_node]
+        for current_node in nodes:
+            for next_node in adjacency_list.get(current_node):
+                # Haven't visited the next node before
+                if float("inf") == distance_from_starting_node[next_node]:
+                    distance_from_starting_node[next_node] = 1 + distance_from_starting_node[current_node]
+                    nodes.append(next_node)
+                # If the next node has been visited (since it has a distance value)
+                # and the current node has been visited (since it also has a distance value)
+                # and the next node's distance value is greater than or equal to the current node's distance value
+                # (which means the next node was NOT visited before the current node was first visited)
+                # This means a cycle exists.
+                # Iterate over all nodes to capture all possible cycles, keeping track of the smallest one seen.
+                elif distance_from_starting_node[current_node] <= distance_from_starting_node[next_node]:
+                    local_minimum = min(
+                        local_minimum,
+                        1 + distance_from_starting_node[current_node] + distance_from_starting_node[next_node]
+                    )
+
+        return local_minimum
+
+
 class DfsSolution:
     shortest_cycle_length = float("inf")
     """

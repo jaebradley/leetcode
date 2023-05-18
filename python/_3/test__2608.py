@@ -1,6 +1,6 @@
 import pytest
 
-from _2608 import DfsSolution
+from _2608 import DfsSolution, BfsSolution
 
 
 class TestSolution:
@@ -16,6 +16,13 @@ class TestSolution:
                       [8, 14], [4, 9], [7, 9], [9, 18], [0, 14]]],
                     3
             ),
+            ([6, [[4, 1], [5, 1], [3, 2], [5, 0], [4, 0], [3, 0], [2, 1]]], 4),
+            ([8, [[7, 3], [1, 5], [0, 6], [3, 1], [6, 2], [7, 4], [3, 2], [5, 2], [6, 5], [0, 3]]], 3),
+            ([6, [[4, 2], [5, 1], [5, 0], [0, 3], [5, 2], [1, 4], [1, 3], [3, 4]]], 3),
         ])
     def test(self, inputs, expected):
-        assert DfsSolution().findShortestCycle(*inputs) == expected
+        for solution in [
+            DfsSolution(),
+            BfsSolution()
+        ]:
+            assert solution.findShortestCycle(*inputs) == expected
