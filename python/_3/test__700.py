@@ -1,6 +1,6 @@
 import pytest
 
-from _700 import Solution, TreeNode
+from _700 import RecursiveSolution, IterativeSolution, TreeNode
 
 
 class TestSolution:
@@ -26,4 +26,5 @@ class TestSolution:
              None)
         ])
     def test(self, inputs, expected):
-        assert Solution().searchBST(*inputs) == expected
+        for solution in [RecursiveSolution(), IterativeSolution()]:
+            assert solution.searchBST(*inputs) == expected
