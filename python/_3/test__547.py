@@ -1,6 +1,6 @@
 import pytest
 
-from _547 import DfsSolution
+from _547 import DfsSolution, UnionFindSolution
 
 
 class TestSolution:
@@ -11,4 +11,5 @@ class TestSolution:
             ([[[1, 0, 0], [0, 1, 0], [0, 0, 1]]], 3)
         ])
     def test(self, inputs, expected):
-        assert DfsSolution().findCircleNum(*inputs) == expected
+        for solution in [DfsSolution(), UnionFindSolution()]:
+            assert solution.findCircleNum(*inputs) == expected
