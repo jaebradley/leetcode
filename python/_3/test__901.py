@@ -1,5 +1,3 @@
-import pytest
-
 from _901 import StockSpanner
 
 
