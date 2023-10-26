@@ -25,13 +25,13 @@ class Solution:
         for current_temperature_index in range(len(temperatures) - 1, -1, -1):
             current_temperature = temperatures[current_temperature_index]
             while 0 < len(greatest_temperatures_seen) \
-                    and greatest_temperatures_seen[len(greatest_temperatures_seen) - 1][0] < current_temperature:
+                    and greatest_temperatures_seen[-1][0] <= current_temperature:
                 greatest_temperatures_seen.pop()
 
             if 0 == len(greatest_temperatures_seen):
                 result[current_temperature_index] = 0
             else:
-                current_greatest_temperature = greatest_temperatures_seen[len(greatest_temperatures_seen) - 1]
+                current_greatest_temperature = greatest_temperatures_seen[-1]
                 result[current_temperature_index] = current_greatest_temperature[1] - current_temperature_index
             greatest_temperatures_seen.append([current_temperature, current_temperature_index])
 
