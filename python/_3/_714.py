@@ -15,8 +15,7 @@ class Solution:
         buying_profit, selling_profit = -sys.maxsize, 0
 
         for price in prices:
-            current_selling_profit = selling_profit
             selling_profit = max(selling_profit, buying_profit + price - fee)
-            buying_profit = max(buying_profit, current_selling_profit - price)
+            buying_profit = max(buying_profit, selling_profit - price)
 
         return selling_profit
