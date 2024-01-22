@@ -1,6 +1,6 @@
 import pytest
 
-from _135 import TwoPassSolution
+from _135 import TwoPassSolution, OnePassSolution
 
 
 class TestSolution:
@@ -11,5 +11,5 @@ class TestSolution:
             ([1, 2, 2], 4),
         ])
     def test(self, ratings, expected):
-        for solution in [TwoPassSolution()]:
+        for solution in [TwoPassSolution(), OnePassSolution()]:
             assert solution.candy(ratings) == expected
