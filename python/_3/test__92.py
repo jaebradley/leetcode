@@ -23,7 +23,6 @@ class TestSolution:
                  1,
                  2],
              ListNode(val=5, next=ListNode(val=3))),
-
         ])
     def test(self, arguments, expected):
         assert Solution().reverseBetween(*arguments) == expected
