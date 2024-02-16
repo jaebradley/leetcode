@@ -1,6 +1,6 @@
 import pytest
 
-from _399 import Solution
+from _399 import UnionFindSolution, BfsSolution
 
 
 class TestSolution:
@@ -22,4 +22,5 @@ class TestSolution:
                     [0.50000, 2.00000, -1.00000, -1.00000]),
         ])
     def test(self, inputs, expected):
-        assert Solution().calcEquation(*inputs) == expected
+        for solution in [BfsSolution(), UnionFindSolution()]:
+            assert solution.calcEquation(*inputs) == expected
