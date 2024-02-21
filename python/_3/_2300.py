@@ -5,30 +5,25 @@ from typing import List
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
         result = []
-        sorted_minimum_acceptable_spell_for_potion = sorted(list(map(lambda potion: potion / success, potions)))
+        sorted_potions = sorted(potions)
 
         for spell in spells:
-            result.append(1 + self.helper(sorted_minimum_acceptable_spell_for_potion, spell))
+            result.append(self.helper(sorted_potions, spell, success))
 
         return result
 
-    def helper(self, minimum_acceptable_spells: List[int], target: int):
-        top_index = len(minimum_acceptable_spells) - 1
+    def helper(self, sorted_potions: List[int], current_spell: int, target: int):
+        potion_count = len(sorted_potions)
+        top_index = potion_count - 1
         bottom_index = 0
 
-        while top_index > bottom_index:
+        while top_index >= bottom_index:
             midpoint_index = math.floor((top_index + bottom_index) / 2)
-            midpoint_value = minimum_acceptable_spells[midpoint_index]
-            if target == midpoint_value:
-                while midpoint_index > 0 and midpoint_value >= target:
-                    midpoint_index -= 1
-                    midpoint_value = minimum_acceptable_spells[midpoint_index]
-
-                return midpoint_index if midpoint_value < target else -1
+            midpoint_value = sorted_potions[midpoint_index] * current_spell
 
             if target > midpoint_value:
                 bottom_index = midpoint_index + 1
-            elif target < midpoint_value:
+            elif target <= midpoint_value:
                 top_index = midpoint_index - 1
 
-        return top_index
+        return potion_count - (top_index + 1)
