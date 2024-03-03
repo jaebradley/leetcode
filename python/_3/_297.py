@@ -91,3 +91,51 @@ class LevelOrderCodec:
 
         return root
 
+class RecursivePreOrderCodec:
+    """
+    Pre-order is root, left, right
+
+    Serialization works something like this:
+    * Add current node value to serialized array
+    * Process left node (recursively)
+    * Process right node (recursively)
+    * If current node is None, add "null"
+    * Pick some delimiter (like a comma)
+
+    Deserialization works like this:
+    * Tree is serialized as root, then left tree, then right tree
+    * If the strategy is to deserialize root (i.e. if is "null" then return None, else return a TreeNode with the value
+      converted to an int), then attempt to deserialize the left subtree, by recursively calling the same helper
+      function, then attempt to deserialize the right subtree, by recursively calling the same helper function
+    * When leaf nodes are found (i.e. the value is "null"), the helper function should return up the call stack
+    * Returning up the call stack will lead to the "left" subtree finishing evaluation and then moving on to right
+      subtree evaluation, or the "right" subtree finishing evaluation and the underlying subtree returning.
+    """
+    def serialize(self, root):
+        def helper(current_node, current_values):
+            if current_node:
+                current_values.append(str(current_node.val))
+
+                helper(current_node.left, current_values)
+                helper(current_node.right, current_values)
+            else:
+                current_values.append("null")
+
+        values = []
+        helper(root, values)
+        return ",".join(values)
+
+    def deserialize(self, data):
+        def helper(serialized_tree):
+            current_node_value = next(serialized_tree)
+            if "null" == current_node_value:
+                return None
+
+            current_node = TreeNode(val=int(current_node_value))
+            current_node.left = helper(serialized_tree)
+            current_node.right = helper(serialized_tree)
+
+            return current_node
+
+        return helper(serialized_tree=iter(data.split(",")))
+
