@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from _121 import Solution
 
 

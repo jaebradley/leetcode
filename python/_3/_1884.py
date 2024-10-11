@@ -1,5 +1,6 @@
 import sys
 
+
 class Solution:
     def twoEggDrop(self, n: int) -> int:
         result = [[0] * (1 + n), [0] * (1 + n), [0] * (1 + n)]

@@ -3,7 +3,6 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-
         max_profit_if_bought_previously, max_profit = -prices[0], 0
 
         for current_price in prices[1:]:

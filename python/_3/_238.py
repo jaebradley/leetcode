@@ -15,6 +15,7 @@ class Solution:
     Second array is products from left to right (starting from first element to 2nd to last element):
     [1, [0], [0:1], [0:2],...,[0:n-4], [0:n-3], [0:n-2], [0:n-1]]
     """
+
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         left_to_right, right_to_left, numbers_count = [1], [1], len(nums)
         for left_to_right_index in range(numbers_count - 1):
@@ -33,4 +34,3 @@ class Solution:
             products.append(left_to_right_product * right_to_left_product)
 
         return products
-

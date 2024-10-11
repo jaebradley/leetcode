@@ -1,6 +1,6 @@
 import pytest
 
-from _96 import TreeNode, Solution
+from _96 import Solution
 
 
 class TestSolution:

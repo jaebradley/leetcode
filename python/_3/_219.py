@@ -10,6 +10,7 @@ class Solution:
     Else, replace the index in the map.
     Return False if no numbers match criteria.
     """
+
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
         index_by_number = {}
 

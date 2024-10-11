@@ -19,6 +19,7 @@ class Solution:
     """
     
     """
+
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         return self._generate_bst(1, n + 1)
 

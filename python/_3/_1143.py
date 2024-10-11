@@ -9,6 +9,7 @@ class Solution:
     as 1 + the LCS at index A - 1 and index B - 1 (if the character at index A == the character at index B)
     OR the maximum LCS between index A and index B - 1 and index A - 1 and index B.
     """
+
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         current_row = [0] * (len(text1) + 1)
         for second_word_character in text2:

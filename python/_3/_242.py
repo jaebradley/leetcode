@@ -18,4 +18,3 @@ class Solution:
             if 0 != count:
                 return False
         return True
-

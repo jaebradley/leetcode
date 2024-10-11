@@ -4,6 +4,7 @@ https://leetcode.com/problems/move-zeroes/description/
 
 from typing import List
 
+
 class Solution:
     """
     Two pointers:
@@ -13,6 +14,7 @@ class Solution:
     Then increment the second pointer until it reaches the next non-zero value or reaches the end of the list
     Then increment the first pointer until it reaches the next 0 value or passes the second pointer
     """
+
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.

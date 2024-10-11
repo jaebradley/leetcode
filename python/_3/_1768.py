@@ -2,6 +2,7 @@
 https://leetcode.com/problems/merge-strings-alternately/?envType=study-plan-v2&envId=leetcode-75
 """
 
+
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
         first_word_character_index = 0

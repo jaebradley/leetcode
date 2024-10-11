@@ -11,6 +11,7 @@ class Solution:
     If prefix ever is negative, set prefix to 0 and current sum to next element
     Max sum at end of evaluating all elements should represent max subarray
     """
+
     def maxSubArray(self, nums: List[int]) -> int:
         prefix, max_sum = -sys.maxsize, nums[0]
         for value in nums:

@@ -1,5 +1,5 @@
-from typing import List
 from collections import deque
+from typing import List
 
 
 class Solution:
@@ -26,4 +26,3 @@ class Solution:
                         q.append([next_row_index, next_column_index, 1 + level])
 
         return -1
-

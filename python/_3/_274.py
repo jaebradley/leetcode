@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     # h-index value will be betweent 0 to length of array
     # h-index can't be greater than the total number of papers published

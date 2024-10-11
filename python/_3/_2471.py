@@ -1,7 +1,6 @@
 """
 https://leetcode.com/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/description/
 """
-from collections import deque
 from typing import Optional, List
 
 

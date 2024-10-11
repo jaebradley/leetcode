@@ -12,6 +12,7 @@ class Solution:
 
     The last element of the last row should be the number of unique paths to reach the "bottom-right corner".
     """
+
     def uniquePaths(self, m: int, n: int) -> int:
         current_row = [1] * (n + 1)
 

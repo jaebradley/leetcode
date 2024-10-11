@@ -18,6 +18,7 @@ class Solution:
     This means that all temperatures in the stack < the current temperature can be removed. If no temperatures in the stack are
     greater than the current temperature, insert a 0 in the result array as no temperatures to its right are greater than it.
     """
+
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         result = [0] * len(temperatures)
         greatest_temperatures_seen = []
