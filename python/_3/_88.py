@@ -12,6 +12,7 @@ class Solution:
     At some point, the element will be overwritten by either a value in num2 or num1.
     If there are any num2 values left, put them in the front of num1.
     """
+
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.

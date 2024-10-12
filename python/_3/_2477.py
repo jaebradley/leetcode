@@ -53,6 +53,7 @@ class BfsSolution:
     Runtime is O(number of nodes).
     Memory is O(number of nodes)
     """
+
     def minimumFuelCost(self, roads: List[List[int]], seats: int) -> int:
         adjacency_list = {}
         degrees = {}

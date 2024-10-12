@@ -14,6 +14,7 @@ class Solution:
     If the number is greater than the first and second values, we've completed the triplet, and a triplet exists.
     If all the numbers have been exhausted, then no triplet exists.
     """
+
     def increasingTriplet(self, nums: List[int]) -> bool:
         first = second = float('inf')
         for n in nums:

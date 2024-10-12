@@ -24,7 +24,7 @@ class Solution:
                     next_row_index = current_row_index + next_row_modifier
                     next_column_index = current_column_index + next_column_modifier
                     if 0 <= next_row_index < row_count and 0 <= next_column_index < column_count and (
-                    next_row_index, next_column_index) not in seen_coordinates:
+                            next_row_index, next_column_index) not in seen_coordinates:
                         q.append((next_row_index, next_column_index))
                         seen_coordinates.add((next_row_index, next_column_index))
 

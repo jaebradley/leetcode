@@ -4,6 +4,7 @@ https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/?envTyp
 
 from typing import List
 
+
 class Solution:
     """
     Find all the intervals ("points") that all overlap.
@@ -12,6 +13,7 @@ class Solution:
     Iterate over points, grouping points where the current point does not start after the smallest end value seen.
     If the current point starts after the smallest end value seen, then increment the arrow count and keep track of a new group.
     """
+
     def findMinArrowShots(self, points: List[List[int]]) -> int:
         arrow_count = 0
         ordered_points = sorted(points, key=lambda point: point[0])

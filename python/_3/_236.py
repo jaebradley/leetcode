@@ -10,6 +10,7 @@ class TreeNode:
         if isinstance(other, TreeNode):
             return self.val == other.val and self.left == other.left and self.right == other.right
 
+
 class RecursiveSolution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if root == p or root == q:

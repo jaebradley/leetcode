@@ -33,5 +33,4 @@ class Solution:
 
             counter -= 1
 
-
         return pairs

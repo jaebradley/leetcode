@@ -2,6 +2,7 @@ import pytest
 
 from _1668 import Solution
 
+
 class TestSolution:
     @pytest.mark.parametrize(
         "inputs, expected",

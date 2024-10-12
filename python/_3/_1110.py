@@ -35,8 +35,10 @@ class Solution:
             if has_deleted_parent and not should_delete_node:
                 Solution.ROOTS.append(current_node)
 
-            current_node.left = self.helper(current_node=current_node.left, to_delete=to_delete, has_deleted_parent=should_delete_node)
-            current_node.right = self.helper(current_node=current_node.right, to_delete=to_delete, has_deleted_parent=should_delete_node)
+            current_node.left = self.helper(current_node=current_node.left, to_delete=to_delete,
+                                            has_deleted_parent=should_delete_node)
+            current_node.right = self.helper(current_node=current_node.right, to_delete=to_delete,
+                                             has_deleted_parent=should_delete_node)
 
             return None if should_delete_node else current_node
 

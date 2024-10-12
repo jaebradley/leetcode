@@ -1,4 +1,5 @@
 import pytest
+
 from _242 import Solution
 
 

@@ -1,5 +1,6 @@
 from typing import Optional
 
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -17,6 +18,7 @@ class Solution:
     """
     To know if a current node is a duplicate, all we need to know is the next node.
     """
+
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         dummy_head = ListNode(val=-1, next=head)
         if head:

@@ -1,6 +1,5 @@
-import sys
-from typing import List
 from collections import deque
+from typing import List
 
 
 class Solution:
@@ -42,8 +41,8 @@ class Solution:
             indegrees_by_nodes[destination_node] = 1 + destination_node_indegree
 
         zero_indegree_nodes = deque(map(lambda e: e[0],
-                                      filter(lambda e: 0 == e[1],
-                                             indegrees_by_nodes.items())))
+                                        filter(lambda e: 0 == e[1],
+                                               indegrees_by_nodes.items())))
 
         while zero_indegree_nodes:
             node = zero_indegree_nodes.popleft()
@@ -60,7 +59,6 @@ class Solution:
                     zero_indegree_nodes.append(destination_node)
 
         return output
-
 
     """
     Map all starting nodes to destination nodes.

@@ -1,6 +1,3 @@
-from typing import Optional, List
-
-
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -13,6 +10,8 @@ class TreeNode:
         if isinstance(other, TreeNode):
             return self.val == other.val and self.left == other.left and self.right == other.right
         return False
+
+
 class Solution:
     """
     The number of unique BSTs for some number X is the sum of all the unique BSTs for each number 1 through X as the root.
@@ -21,12 +20,12 @@ class Solution:
     The number of BSTs with the number 3 as root for 1-7 inclusive is
     (Left Subtree) [1, 2] * (Right Subtree) [4, 5, 6 , 7] = Unique BSTs(2) * Unique BSTs(4)
     """
+
     def numTrees(self, n: int) -> int:
         # dp is 0-indexed, but index 0 = unique BSTs for node count of 1
         dp = [0] * (1 + n)
         dp[0] = 1
         dp[1] = 1
-
 
         for current_node_index in range(2, 1 + n):
             for offset in range(1, 1 + current_node_index):

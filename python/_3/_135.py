@@ -34,6 +34,7 @@ class TwoPassSolution:
 
         return sum(results)
 
+
 class OnePassSolution:
     """
     This one-pass greedy approach uses three variables - up, down, and peak.
@@ -57,6 +58,7 @@ class OnePassSolution:
     the current candy count by 1. This is because the peak child should get additional candies if the decrease sequence
     is longer than the previous increasing sequence.
     """
+
     def candy(self, ratings: List[int]) -> int:
         if not ratings:
             return 0
@@ -87,7 +89,3 @@ class OnePassSolution:
                     count += 1
 
         return count
-
-
-
-

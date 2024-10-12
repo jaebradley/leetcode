@@ -26,6 +26,7 @@ class Solution:
     :param nums:
     :return:
     """
+
     def rob(self, nums: List[int]) -> int:
         max_robbing_previous_house, max_skipping_previous_house = 0, 0
         for num in nums:

@@ -1,7 +1,6 @@
 """
 https://leetcode.com/problems/number-of-good-paths/
 """
-import math
 from typing import List
 
 

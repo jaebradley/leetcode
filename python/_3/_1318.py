@@ -12,6 +12,7 @@ class Solution:
     (a | b) ^ c finds all differing bits between a | b and c.
     (a & b) & ((a | b) ^ c) finds all the bits that are set in a and b that differ between (a | b) and c.
     """
+
     def minFlips(self, a: int, b: int, c: int) -> int:
         return Solution.count_set_bits(operator.xor(operator.or_(a, b), c)) \
             + Solution.count_set_bits(operator.and_(operator.and_(a, b), operator.xor(operator.or_(a, b), c)))

@@ -1,5 +1,6 @@
 from collections import deque
 
+
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
@@ -12,6 +13,7 @@ class TreeNode(object):
         if isinstance(other, TreeNode):
             return self.val == other.val and self.left == other.left and self.right == other.right
         return False
+
 
 class LevelOrderCodec:
     """
@@ -57,7 +59,6 @@ class LevelOrderCodec:
 
         return ",".join(serialized_tree)
 
-
     def deserialize(self, data):
         """Decodes your encoded data to tree.
 
@@ -91,6 +92,7 @@ class LevelOrderCodec:
 
         return root
 
+
 class RecursivePreOrderCodec:
     """
     Pre-order is root, left, right
@@ -111,6 +113,7 @@ class RecursivePreOrderCodec:
     * Returning up the call stack will lead to the "left" subtree finishing evaluation and then moving on to right
       subtree evaluation, or the "right" subtree finishing evaluation and the underlying subtree returning.
     """
+
     def serialize(self, root):
         def helper(current_node, current_values):
             if current_node:
@@ -138,4 +141,3 @@ class RecursivePreOrderCodec:
             return current_node
 
         return helper(serialized_tree=iter(data.split(",")))
-
