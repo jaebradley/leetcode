@@ -7,17 +7,17 @@ class TestSolution:
     @pytest.mark.parametrize(
         "inputs, expected",
         [
-            # ([["bread"], [["yeast", "flour"]], ["yeast", "flour", "corn"]], ["bread"]),
-            # ([
-            #      ["bread", "sandwich"],
-            #      [["yeast", "flour"], ["bread", "meat"]],
-            #      ["yeast", "flour", "meat"]],
-            #  ["bread", "sandwich"]),
-            # ([
-            #      ["bread", "sandwich", "burger"],
-            #      [["yeast", "flour"], ["bread", "meat"], ["sandwich", "meat", "bread"]],
-            #      ["yeast", "flour", "meat"]],
-            #  ["bread", "sandwich", "burger"]),
+            ([["bread"], [["yeast", "flour"]], ["yeast", "flour", "corn"]], ["bread"]),
+            ([
+                 ["bread", "sandwich"],
+                 [["yeast", "flour"], ["bread", "meat"]],
+                 ["yeast", "flour", "meat"]],
+             ["bread", "sandwich"]),
+            ([
+                 ["bread", "sandwich", "burger"],
+                 [["yeast", "flour"], ["bread", "meat"], ["sandwich", "meat", "bread"]],
+                 ["yeast", "flour", "meat"]],
+             ["bread", "sandwich", "burger"]),
             ([
                  ["xevvq", "izcad", "p", "we", "bxgnm", "vpio", "i", "hjvu", "igi", "anp", "tokfq", "z", "kwdmb", "g",
                   "qb", "q", "b", "hthy"],
