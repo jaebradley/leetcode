@@ -35,7 +35,7 @@ function main() {
   if [[ "0" != "$?" ]]; then printf "Cannot install poetry at ${pip_program_path}\n" && exit 255; fi
 
   local -r poetry_program_path="${dependencies_folder_path}/bin/poetry"
-  "${poetry_program_path}" install --no-root
+  "${poetry_program_path}" install
   if [[ "0" != "$?" ]]; then printf "Cannot execute poetry at ${poetry_program_path}\n" && exit 255; fi
 
   "${poetry_program_path}" run pytest
