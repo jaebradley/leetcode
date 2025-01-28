@@ -11,6 +11,7 @@ class TestSolution:
             (["wordgoodgoodgoodbestword", ["word", "good", "best", "word"]], []),
             (["barfoofoobarthefoobarman", ["bar", "foo", "the"]], [6, 9, 12]),
             (["aaaaa", ["a", "a", "a"]], [0, 1, 2]),
+            (["wordgoodgoodgoodbestword", ["word","good","best","good"]], [8]),
         ])
     def test(self, inputs, expected):
         assert Solution().findSubstring(*inputs) == expected
