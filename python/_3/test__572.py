@@ -1,6 +1,6 @@
 import pytest
 
-from _572 import Solution, TreeNode
+from _572 import RecursiveSolution, MerkleTreeSolution, TreeNode
 
 
 class TestSolution:
@@ -24,4 +24,5 @@ class TestSolution:
              False),
         ])
     def test(self, inputs, expected):
-        assert Solution().isSubtree(*inputs) == expected
+        assert RecursiveSolution().isSubtree(*inputs) == expected
+        assert MerkleTreeSolution().isSubtree(*inputs) == expected
