@@ -1,4 +1,5 @@
-from heapq import heapify
+from collections import defaultdict
+from heapq import heappush, heappop
 
 """
 Design a number container system that can do the following:
@@ -16,38 +17,36 @@ Implement the NumberContainers class:
 
 
 class NumberContainers:
-
+    """
+    Map<Index, Number> numbersByIndex: keep track of the last number for a given index
+    Map<Number, List<Index>> orderedIndicesByNumber: keep ordered index values for a given number
+    """
     def __init__(self):
-        self.indices_by_number = {}
-        self.ordered_indices_by_number = {}
+        self.ordered_indices_by_number = defaultdict(list)
         self.numbers_by_index = {}
 
     """
-    Have to recalculate existing index and ordering for that number, if it exists
-    
-    Map<Number, Set<Index>> indicesByNumber
-    Map<Number, List<Index>> orderedIndicesByNumber
-    
-    orderedIndicesByNumber is only recalculated (from the set of numbers) if the first element in the list is removed (can use heapsort O(n log n)).
+    Replace the mapping of the last number for a given index 
+    - O(1)
+    Add the index value to the set of seen ordered indices associated with a given number
+    - O(log # of operations) in worst case
+    - Only "change" operations for one number
     """
-
     def change(self, index: int, number: int) -> None:
-        current_number_for_index = self.numbers_by_index.get(index, None)
-        indices_for_current_number = self.indices_by_number.get(current_number_for_index, set([]))
-        if current_number_for_index is not None and current_number_for_index != number and current_number_for_index not in indices_for_current_number:
-            indices_for_current_number.remove(index)
-            self.indices_by_number[current_number_for_index] = indices_for_current_number
-
         self.numbers_by_index[index] = number
+        heappush(self.ordered_indices_by_number[number], index)
 
-        updated_indices_for_number = self.indices_by_number.get(number, set([]))
-        updated_indices_for_number.add(index)
-        self.indices_by_number[number] = updated_indices_for_number
-
+    """
+    Get the ordered indices associated with the specified number.
+    Iterate over the indices one at a time (should be sorted from smallest index to largest, since it's a min-heap).
+    If the most recent number for the minimum index is the number we're trying to find, return it.
+    Else pop the minimum value from the heap and re-heapify.
+    """
     def find(self, number: int) -> int:
-        indices = list(self.indices_by_number.get(number, set([])))
-        heapify(indices)
-        self.ordered_indices_by_number[number] = indices
-        if self.ordered_indices_by_number[number]:
-            return self.ordered_indices_by_number[number][0]
+        ordered_indices = self.ordered_indices_by_number[number]
+        while ordered_indices:
+            current_minimum_index = ordered_indices[0]
+            if self.numbers_by_index[current_minimum_index] == number:
+                return current_minimum_index
+            heappop(ordered_indices)
         return -1
