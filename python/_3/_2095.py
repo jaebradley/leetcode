@@ -16,24 +16,13 @@ class ListNode:
 
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        dummy_head = ListNode(val=-1, next=head)
-        before_first_pointer = None
-        first_pointer = dummy_head
-        after_first_pointer = first_pointer.next
-        second_pointer = dummy_head
+        dummy = ListNode(val=0, next=head)
+        before, slow, fast = dummy, head, head
+        while fast and fast.next:
+            before = slow
+            slow = slow.next
+            fast = fast.next.next
 
-        while second_pointer is not None:
-            before_first_pointer = first_pointer
-            first_pointer = first_pointer.next
-            if first_pointer is None:
-                after_first_pointer = None
-            else:
-                after_first_pointer = first_pointer.next
-            second_pointer = second_pointer.next
-            if second_pointer is not None:
-                second_pointer = second_pointer.next
+        before.next = slow.next
 
-        if before_first_pointer is not None:
-            before_first_pointer.next = after_first_pointer
-
-        return dummy_head.next
+        return dummy.next
