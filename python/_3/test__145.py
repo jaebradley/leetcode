@@ -1,6 +1,6 @@
 import pytest
 
-from _145 import Solution, TreeNode
+from _145 import RecursiveSolution, TreeNode, IterativeSolution
 
 
 class TestSolution:
@@ -24,4 +24,5 @@ class TestSolution:
             )
         ])
     def test(self, input, expected):
-        assert Solution().postorderTraversal(input) == expected
+        for solution in [RecursiveSolution(), IterativeSolution()]:
+            assert solution.postorderTraversal(input) == expected
