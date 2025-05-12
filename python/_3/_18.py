@@ -5,11 +5,11 @@ class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
 
         def kSum(nums: List[int], target: int, k: int) -> List[List[int]]:
-            res = []
+            result = []
 
-            # If we have run out of numbers to add, return res.
+            # If we have run out of numbers to add, return result.
             if not nums:
-                return res
+                return result
 
             # There are k remaining values to add to the sum. The
             # average of these values is at least target // k.
@@ -19,7 +19,7 @@ class Solution:
             # in nums is greater than target // k or if the largest
             # value in nums is smaller than target // k.
             if average_value < nums[0] or nums[-1] < average_value:
-                return res
+                return result
 
             if k == 2:
                 return twoSum(nums, target)
@@ -30,28 +30,30 @@ class Solution:
                     # iterate over sums returned for decremented group size and decremented target value using remaining
                     # numbers
                     for subset in kSum(nums[current_index + 1:], target - nums[current_index], k - 1):
-                        res.append([nums[current_index]] + subset)
+                        result.append([nums[current_index]] + subset)
 
-            return res
+            return result
 
         def twoSum(nums: List[int], target: int) -> List[List[int]]:
-            res = []
-            lo, hi = 0, len(nums) - 1
+            result = []
+            left_index, right_index = 0, len(nums) - 1
 
-            while lo < hi:
-                curr_sum = nums[lo] + nums[hi]
-                if curr_sum < target or (lo > 0 and nums[lo] == nums[lo - 1]):
-                    lo += 1
-                elif curr_sum > target or (
-                        hi < len(nums) - 1 and nums[hi] == nums[hi + 1]
+            while left_index < right_index:
+                current_sum = nums[left_index] + nums[right_index]
+                # includes previous value check
+                if current_sum < target or (left_index > 0 and nums[left_index] == nums[left_index - 1]):
+                    left_index += 1
+                # includes previous value check
+                elif current_sum > target or (
+                        right_index < len(nums) - 1 and nums[right_index] == nums[right_index + 1]
                 ):
-                    hi -= 1
+                    right_index -= 1
                 else:
-                    res.append([nums[lo], nums[hi]])
-                    lo += 1
-                    hi -= 1
+                    result.append([nums[left_index], nums[right_index]])
+                    left_index += 1
+                    right_index -= 1
 
-            return res
+            return result
 
         nums.sort()
         return kSum(nums, target, 4)
