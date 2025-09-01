@@ -5,16 +5,12 @@ You are given an integer array nums of length n and a 2D array queries, where qu
 
 For each queries[i]:
 
-    Select a 
-
-    of indices within the range [li, ri] in nums.
+    Select a subset of indices within the range [li, ri] in nums.
     Decrement the values at the selected indices by 1.
 
 A Zero Array is an array where all elements are equal to 0.
 
 Return true if it is possible to transform nums into a Zero Array after processing all the queries sequentially, otherwise return false.
-
- 
 
 Example 1:
 
@@ -42,17 +38,16 @@ Explanation:
     For i = 1:
         Select the subset of indices as [0, 1, 2] and decrement the values at these indices by 1.
         The array will become [3, 1, 0, 0], which is not a Zero Array.
-
-
 """
-
 
 class Solution:
     """
-    Differences array and prefix sum array.
-    calculated differences array that is length of nums.
-    For each query, add a dictionary entry, key is length and sum is value
-    
+    Build a decrements array, initialized to 0.
+    For each query, increase the amount of decrements for the starting index for the query.
+    Decrease the number of decrements for the index after the last index for the query.
+    Then "sum" across the decrements as the numbers are iterated.
+    Decrements can decrease.
+    When the current number is greater than this decrement "sum" then we know that a zero array is not possible.
     """
     def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
         decrements = [0] * len(nums)
@@ -65,6 +60,7 @@ class Solution:
         for index in range(len(nums)):
             current_number = nums[index]
             current_decrement = decrements[index]
+            # This modifies the decrement value (which will always be 0, at a minimum)
             decrement = max(0, decrement + current_decrement)
             if current_number > decrement:
                 return False
