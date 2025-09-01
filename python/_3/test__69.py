@@ -7,7 +7,7 @@ class TestSolution:
     @pytest.mark.parametrize(
         "inputs, expected",
         [
-            (0, 1),
+            (0, 0),
             (1, 1),
             (2, 1),
             (3, 1),
