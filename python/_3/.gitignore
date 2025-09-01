@@ -161,6 +161,8 @@ cython_debug/
 
 # Ignore built local dependencies
 dependencies/
+bin/
+pyvenv.cfg
 
 # Ignore vim .swp files
 *.swp
