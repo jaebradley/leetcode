@@ -32,8 +32,9 @@ class Solution:
     def magnificentSets(self, n: int, edges: List[List[int]]) -> int:
         graph = {}
         for [first_node, second_node] in edges:
-            graph.setdefault(first_node, set()).add(second_node)
-            graph.setdefault(second_node, set()).add(first_node)
+            # 0-indexed
+            graph.setdefault(first_node - 1, set()).add(second_node - 1)
+            graph.setdefault(second_node - 1, set()).add(first_node - 1)
 
         group_count, colors_by_node = 0, dict(map(lambda v: [v, -1], range(n)))
         for current_node in range(n):
@@ -43,8 +44,8 @@ class Solution:
                     return -1
 
         distances_by_node: dict[int, int] = dict(
-            map(lambda v: [v, self.get_shortest_longest_path(current_node=v, graph=graph)], range(n)))
-        max_group_count, visited_nodes = 0, {}
+            map(lambda v: [v, self.get_shortest_longest_path(starting_node=v, graph=graph)], range(n)))
+        max_group_count, visited_nodes = 0, set()
 
         for current_node in range(n):
             if current_node not in visited_nodes:
@@ -71,15 +72,16 @@ class Solution:
 
         return True
 
-    def get_shortest_longest_path(self, current_node: int, graph: Dict[int, Set[int]]) -> int:
-        q, visited, distance = deque([current_node]), {current_node}, 0
+    def get_shortest_longest_path(self, starting_node: int, graph: Dict[int, Set[int]]) -> int:
+        q, visited, distance = deque([starting_node]), {starting_node}, 0
         while q:
             level_node_count = len(q)
             for _ in range(level_node_count):
-                q.pop()
+                current_node = q.pop()
 
-                for neighbor in graph.get(current_node, {}):
+                for neighbor in graph.get(current_node, set()):
                     if neighbor not in visited:
+                        visited.add(neighbor)
                         q.appendleft(neighbor)
 
             distance += 1
@@ -88,9 +90,9 @@ class Solution:
 
     def count_component_groups(self, current_node: int, graph: Dict[int, Set[int]], visited_nodes: Set[int],
                                distances_by_node: Dict[int, int]) -> int:
-        maximum_groups = distances_by_node.get(current_node, 1)
+        maximum_groups = distances_by_node.get(current_node, 0)
         visited_nodes.add(current_node)
-        for neighbor in graph.get(current_node, []):
+        for neighbor in graph.get(current_node, set()):
             if neighbor not in visited_nodes:
                 maximum_groups = max(maximum_groups, self.count_component_groups(current_node=neighbor, graph=graph,
                                                                                  visited_nodes=visited_nodes,
