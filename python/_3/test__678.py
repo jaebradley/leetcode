@@ -1,11 +1,11 @@
 import pytest
 
-from _678 import Solution
+from _678 import DPSolution, TwoPointerGreedySolution
 
 
 class TestSolution:
     @pytest.mark.parametrize(
-        "inputs, expected",
+        "value, expected",
         [
             ("()", True),
             ("(*)", True),
@@ -20,6 +20,8 @@ class TestSolution:
             (")(", False),
             ("*()", True),
             ("*()*", True),
+            ("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()", True),
         ])
-    def test(self, inputs, expected):
-        assert Solution().checkValidString(*inputs) == expected
+    def test(self, value, expected):
+        for solution in (DPSolution(), TwoPointerGreedySolution()):
+            assert solution.checkValidString(value) == expected

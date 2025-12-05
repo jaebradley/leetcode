@@ -29,30 +29,75 @@ Constraints:
 s[i] is '(', ')' or '*'.
 """
 
-class Solution:
+
+class DPSolution:
     """
-    When a * is seen, there are three possibilities
-    * Treat it as an open or closing parenthesis
-    * OR treat it as an empty string / ignore it
+    Two-dimensional array where dp[i][j] is true/false if the input string from index i to index j inclusive is valid (or not).
 
-    Add open parentheses and *s to stack.
-    Keep track of number of *s.
-    If closed parentheses is seen
-    * If no open parentheses or * in stack then return false
-    * Otherwise pop off the top of the stack
-    * If a star keep track that it was used
+    * is the only single character that could be valid (a standalone "(" or ")" is not valid).
 
-    Is valid if len(stack) is zero or len(stack) / 2 === total * count - * used
+    Starting from the penultimate character in the string, check if the last two characters make a valid string.
+
+    If they do, then dp[2nd to last][last] is True.
+
+    Continuing this approach, checking if the first character and the last character are matching and whether
+    the inner string is valid or not.
+
+    Finally, check if dp[0][last index] is True or False.
+    """
+
+    def checkValidString(self, s: str) -> bool:
+        valid_open_characters, valid_closed_characters = {'(', '*'}, {')', '*'}
+        dp = [[False] * len(s) for _ in range(len(s))]
+
+        for index, character in enumerate(s):
+            dp[index][index] = character == '*'
+
+        for left_index in range(len(s) - 2, -1, -1):
+            for right_index in range(left_index + 1, len(s)):
+                is_matching_pair = s[left_index] in valid_open_characters and s[
+                    right_index] in valid_closed_characters and (
+                                           (right_index - left_index) == 1 or dp[left_index + 1][right_index - 1]
+                                   )
+
+                dp[left_index][right_index] = is_matching_pair or (
+                    any(dp[left_index][split_index] and dp[split_index + 1][right_index]
+                        for split_index in range(left_index, right_index))
+                )
+
+        return dp[0][len(s) - 1]
+
+
+class TwoPointerGreedySolution:
+    """
+    From left to right, count the asterisks as open parentheses and see if a valid string can be constructed. If more
+    closed brackets are encountered than open parentheses or asterisks than it is not a valid string.
+
+    Do the same from right to left, but for closed parentheses.
+
+    Another way to intuitively think about this is to do two passes, treating all asterisks as open and then treating
+    all asterisks as closed. Any extra asterisks can be "converted" into empty strings.
     """
     def checkValidString(self, s: str) -> bool:
-        potential_open_parentheses, stars_seen, stars_used = [], 0, 0
-        for c in s:
-            if c == '(':
-                potential_open_parentheses.append(c)
-            if c == '*':
-                potential_open_parentheses.append(c)
-                stars_seen += 1
-            if c == ')':
-                stars_used += 1
-                if not potential_open_parentheses:
-                    return False
+        open_bracket_count, asterisk_count, closed_bracket_count = 0, 0, 0
+        for index in range(len(s)):
+            if s[index] == '(' or s[index] == '*':
+                open_bracket_count += 1
+            else:
+                open_bracket_count -= 1
+
+            if open_bracket_count < 0:
+                return False
+
+            right_index = len(s) - index - 1
+            if s[right_index] == ')' or s[right_index] == '*':
+                closed_bracket_count += 1
+            else:
+                closed_bracket_count -= 1
+
+            if closed_bracket_count < 0:
+                return False
+
+        return True
+
+
