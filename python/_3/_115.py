@@ -58,7 +58,10 @@ class RecursiveSolution:
 class IterativeSolution:
     """
     dp[starting haystack index][starting target index] = # of distinct subsequences starting at s[starting haystack index] and t[starting target index], respectively
-
+    Base case is that dp[haystack index + 1][starting target index + 1] = 1 because an empty string is a subsequence of an empty string
+    Then start going backwards - the subsequences of starting haystack index compared to starting target index is at least the subsequences
+    at starting haystack index + 1, starting target index.
+    If the characters are the same, add the subsequences at haystack index + 1, starting target index + 1 since we've found another valid subsequence.
     """
     def numDistinct(self, s: str, t: str) -> int:
         dp = [[0 for _ in range(len(t) + 1)] for _ in range(len(s) + 1)]
