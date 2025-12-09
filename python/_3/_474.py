@@ -26,7 +26,7 @@ class Solution:
 
     def helper(self, stored_calculations, strings, current_index, number_of_remaining_zeroes, number_of_remaining_ones):
         # if at end of strings or no more 0s or 1s, return 0
-        if current_index == len(strings) or (number_of_remaining_zeroes is 0 and number_of_remaining_ones is 0):
+        if current_index == len(strings) or (number_of_remaining_zeroes == 0 and number_of_remaining_ones == 0):
             return 0
 
         # if we have already calculated a value, return the calculated value
