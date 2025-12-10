@@ -36,13 +36,13 @@ class Solution:
     Identify the minimum banana eating rate such that all the bananas are eaten in h hours.
     If a pile has less than k bananas, then no other piles will be started.
 
-    Max pile value // h?
-    Max pile value = len(piles)
-    [1, 1, 1, 1]
-    math.ceil(a / k) + math.ceil(b / k) ... = h
-    k such that sum([a // k, b // k, c // k, d // k, etc]) = h
-    sum(a, b, c, d, ) = h x k
-    math.ceil(sum(a, b, c, d, ) / h) = k
+    Use binary search to calculate estimated hourly speed.
+    Max speed is the max pile (since if hours = len(piles) then speed = max pile).
+    Min speed is 1 banana per hour.
+
+    Runtime: O(# of piles x log(size of max pile))
+    * Have to sum all piles on every iteration of the search
+    * Search log(size of max pile times)
     """
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         left, right = 1, max(piles)
