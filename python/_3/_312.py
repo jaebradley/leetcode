@@ -33,6 +33,40 @@ n == nums.length
 
 class Solution:
     """
+    Problem asks to maximize some value (# of coins to collect).
+    Each decision made depends on previously made decisions - the balloons that we can choose to pop next depends on the
+    balloons that have been popped. Both of these attributes are indicative of a dynamic programming problem.
+
+    Top-down approach: uses recursive functions and memoization
+    Bottom-up approach: uses iteration and a DP array to store previous values
+
+    Top-down pseudocode template:
+        function dp(dp_state, memo_dict) {
+            // check if we have seen this dp_state
+            if dp_state in memo_dict
+                return memo_dict[dp_state]
+
+            // base case (a case that we know the answer for already) such as dp_state is empty
+            if dp_state is the base cases
+                return things like 0 or null
+
+            calculate dp(dp_state) from dp(other_state)
+
+            save dp_state and the result into memo_dict
+        }
+        function answerToProblem(input) {
+            return dp(start_state, empty_memo_dict)
+        }
+
+    Languages like python have memoization decorators - in python this is @lru_cache. These decorators automatically
+    maintain a memo_dict and check if each dp_state (from the template) has been seen.
+
+    The four questions to answer are
+    1. What is dp_state?
+    2. What does the dp function return?
+    3. What is the base case?
+    4. How to calculate dp(dp_state) from dp(other_state)?
+
     Base case is an empty array = 0 coins
     Then consider splitting coins array into calculating max coins by combining
     1. max coins on the left side of one element in the array
