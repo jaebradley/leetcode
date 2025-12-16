@@ -31,7 +31,7 @@ n == nums.length
 """
 
 
-class Solution:
+class TopDownSolution:
     """
     Problem asks to maximize some value (# of coins to collect).
     Each decision made depends on previously made decisions - the balloons that we can choose to pop next depends on the
@@ -87,11 +87,38 @@ class Solution:
             maximum_coins = 0
             for last_balloon_index in range(left, right + 1):
                 maximum_coins = max(maximum_coins,
-                    dp(left, last_balloon_index - 1)
-                    + dp(last_balloon_index + 1, right)
-                    + (coins[left - 1] * coins[last_balloon_index] * coins[right + 1])
-                )
+                                    dp(left, last_balloon_index - 1)
+                                    + dp(last_balloon_index + 1, right)
+                                    + (coins[left - 1] * coins[last_balloon_index] * coins[right + 1])
+                                    )
 
             return maximum_coins
 
         return dp(1, len(coins) - 2)
+
+
+class BottomUpSolution:
+    """
+    dp[left][right] = max coins from bursting balloons from left to right, inclusive
+    Add 1 to ends
+    dp[0][0] = 1 (from end) x dp[0][0] x dp[0][1]
+    return dp[1][len(nums) -1]
+    Iterate over the array such that dp[left + 1][right] and dp[left][right - 1] are visited before dp[left][right] is
+    visited.
+    """
+
+    def maxCoins(self, nums: List[int]) -> int:
+        nums = [1] + nums + [1]
+        dp = [[0] * len(nums) for _ in range(len(nums))]
+        for left_index in range(len(nums) - 2, 0, -1):
+            for right_index in range(left_index, len(nums) - 1):
+                # in the range between the left index and the right index, pick an index to "split" on
+                for index in range(left_index, right_index + 1):
+                    # calculate the gains from splitting the range at this point
+                    gain = nums[left_index - 1] * nums[index] * nums[right_index + 1]
+                    # remaining represents the max coins from interval on either side of the current index
+                    remaining = dp[left_index][index - 1] + dp[index + 1][right_index]
+                    # set the dp[left index][right index] as the max of the remaining + gained balloons by splitting
+                    # at this interval, or the current dp[left index][right index] value
+                    dp[left_index][right_index] = max(remaining + gain, dp[left_index][right_index])
+        return dp[1][len(nums) - 2]
