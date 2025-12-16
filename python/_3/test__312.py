@@ -1,6 +1,6 @@
 import pytest
 
-from _312 import Solution
+from _312 import TopDownSolution, BottomUpSolution
 
 
 class TestSolution:
@@ -11,4 +11,5 @@ class TestSolution:
             ([1, 5], 10),
         ])
     def test(self, coins, expected):
-        assert expected == Solution().maxCoins(coins)
+        for solution in (TopDownSolution(), BottomUpSolution()):
+            assert expected == solution.maxCoins(coins)
