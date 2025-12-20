@@ -1,6 +1,6 @@
 import pytest
 
-from _44 import RecursiveSolution
+from _44 import RecursiveSolution, IterativeSolution
 
 
 class TestSolution:
@@ -17,6 +17,9 @@ class TestSolution:
             (("aba", "???"), True),
             (("aba", "?*"), True),
             (("aba", "?***********"), True),
+            (("", ""), True),
+            (("aab", "c*a*b"), False),
         ])
     def test(self, inputs, expected):
-        assert RecursiveSolution().isMatch(*inputs) == expected
+        for solution in (RecursiveSolution(), IterativeSolution()):
+            assert solution.isMatch(*inputs) == expected

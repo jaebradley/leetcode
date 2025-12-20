@@ -75,14 +75,34 @@ class IterativeSolution:
     "" only matches "*"
     "<any character>" always matches "?"
 
-    When matching "*" there are three possibilities:
+    When matching "*" there are two possibilities:
     1. Matching 0 characters
-    3. Matching many characters
+    2. Matching many characters
 
-    Sub-problems:
-    if s[0] and p[0] match, then sub-problem is if s[1:] and p[1:] match.
+    Matching 0 characters means dp[string index][pattern index - 1] (the previous pattern value).
+    Matching many characters means dp[string index - 1][pattern index]. This is the same as saying does the string match
+    dp[string index - 1][pattern index - 1] + "*" (which will always be true since "*" matches anything).
 
     return dp[string length - 1][pattern length - 1]
     """
     def isMatch(self, s: str, p: str) -> bool:
-        raise NotImplementedError()
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        # empty input string matches empty pattern string
+        dp[0][0] = True
+
+        # handles cases where pattern starts with *
+        column_index = 0
+        while column_index < len(p) and p[column_index] == "*":
+            dp[0][column_index + 1] = True
+            column_index += 1
+
+        for string_index in range(1, len(s) + 1):
+            string_value = s[string_index - 1]
+            for pattern_index in range(1, len(p) + 1):
+                pattern_value = p[pattern_index - 1]
+                if pattern_value == "*":
+                    dp[string_index][pattern_index] = dp[string_index - 1][pattern_index] or dp[string_index][pattern_index - 1]
+                else:
+                    dp[string_index][pattern_index] = (pattern_value == "?" or string_value == pattern_value) and dp[string_index - 1][pattern_index - 1]
+
+        return dp[-1][-1]
