@@ -8,8 +8,8 @@ class TestSolution:
         "inputs, expected",
         [
             (
-                ("aababcaab", 2, 3, 4),
-                2
+                    ("aababcaab", 2, 3, 4),
+                    2
             ),
             (
                     ("aaaa", 1, 3, 3),
