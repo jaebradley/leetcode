@@ -19,6 +19,10 @@ class TestSolution:
                     ("abcdaaaaaa", 1, 6, 6),
                     1
             ),
+            (
+                    ("abcde", 2, 3, 3),
+                    0
+            )
         ])
     def test(self, inputs, expected):
         assert Solution().maxFreq(*inputs) == expected

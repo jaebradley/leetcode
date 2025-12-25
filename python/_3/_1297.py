@@ -37,6 +37,9 @@ class Solution:
             s[starting_index:starting_index + minSize]
             for starting_index in range(0, len(s) - minSize + 1)
         )
-        return next(most_common_element_counts
-                    for (most_common_element, most_common_element_counts) in
-                    counts_by_substring.most_common() if len(set(most_common_element)) <= maxLetters)
+        try:
+            return next(most_common_element_counts
+                        for (most_common_element, most_common_element_counts) in
+                        counts_by_substring.most_common() if len(set(most_common_element)) <= maxLetters)
+        except StopIteration:
+            return 0
