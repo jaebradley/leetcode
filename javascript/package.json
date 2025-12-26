@@ -1,0 +1,14 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "Leetcode solutions written in JavaScript",
+  "scripts": {
+    "test": " node --test *.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaebradley/leetcode.git"
+  },
+  "private": true,
+  "type": "module"
+}
