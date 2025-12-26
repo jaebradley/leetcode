@@ -32,7 +32,7 @@ jobs:
           file: './build/reports/jacoco/test/html/index.html'
   python:
     runs-on: macos-latest
-    name: Unit Tests
+    name: Python Unit Tests
     steps:
     - name: Checkout Project
       uses: actions/checkout@v3
@@ -41,6 +41,17 @@ jobs:
       with:
         python-version: '3.14'
     - name: Run build
-      # TODO: @jbradley replace this with a build script that introspects the project for build scripts, pushd-ing to their directories, executing the build script, and then popd-ing back to the original execution directory
+      # TODO: @jaebradley replace this with a build script that introspects the project for build scripts, pushd-ing to their directories, executing the build script, and then popd-ing back to the original execution directory
       run: pushd ./python/_3/ && bash ./build.sh "$(pwd)/dependencies" && popd
       shell: bash
+  javascript:
+    runs-on: macos-latest
+    name: JavaScript Unit Tests
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v5
+      - name: Setup Node
+        uses: actions/setup-node@v6
+      - name: Run tests
+        run: pushd ./javascript/ && npm test && popd
+        shell: bash
