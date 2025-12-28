@@ -71,7 +71,7 @@ class Heap {
     }
 
     #isLeaf(index) {
-        return index >= Math.floor(this.values.length / 2) && index < (this.values.length - 1);
+        return index >= Math.floor(this.values.length / 2) && index <= (this.values.length - 1);
     }
 
     add(value) {
@@ -79,10 +79,10 @@ class Heap {
         let currentIndex = this.values.length - 1;
         let parentIndex = this.#getParentIndex(currentIndex);
 
-        while (currentIndex > 0 && this.comparator(value, this.values[parentIndex]) > 0) {
+        while (currentIndex > 0 && this.comparator(value, this.values[parentIndex]) < 0) {
             this.#swapValues(parentIndex, currentIndex);
             currentIndex = parentIndex;
-            parentIndex = this.getParentIndex(currentIndex);
+            parentIndex = this.#getParentIndex(currentIndex);
         }
     }
 
@@ -91,7 +91,7 @@ class Heap {
             const leftChildIndex = this.#getLeftChildIndex(index);
             const rightChildIndex = this.#getRightChildIndex(index);
 
-            const largerIndex = this.comparator(this.values[leftChildIndex], this.values[rightChildIndex]) > 0 ? leftChildIndex : rightChildIndex;
+            const largerIndex = rightChildIndex > this.values.length - 1 ? leftChildIndex : (this.comparator(this.values[leftChildIndex], this.values[rightChildIndex]) > 0 ? leftChildIndex : rightChildIndex);
             if (this.comparator(this.values[index], this.values[largerIndex]) < 0) {
                 this.#swapValues(largerIndex, index);
                 this.#heapifyDown(largerIndex);
@@ -102,9 +102,12 @@ class Heap {
     pop() {
         if (this.values.length > 0) {
             const topValue = this.values[0];
+            const lastValue = this.values.pop();
 
-            this.values[0] = this.values.pop();
-            this.#heapifyDown(0);
+            if (this.values.length > 1) {
+                this.values[0] = lastValue;
+                this.#heapifyDown(0);
+            }
 
             return topValue;
         }
@@ -140,10 +143,10 @@ const mergeKLists = function (lists) {
     const heap = new Heap(
         (a, b) => (a[0] - b[0])
     );
-    const listsByCurrentNode = new Map(lists.map((list, index) => ([index, list])));
+    const listsByCurrentNode = new Map(lists.filter(list => !!list).map((list, index) => ([index, list])));
 
-    listsByCurrentNode.entries().forEach((value, index) => {
-        heap.add([value, index]);
+    listsByCurrentNode.forEach((value, index) => {
+        heap.add([value.val, index]);
         listsByCurrentNode.set(index, value.next);
     });
     let currentMergedListNode = new ListNode();
