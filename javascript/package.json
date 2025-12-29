@@ -10,5 +10,8 @@
     "url": "https://github.com/jaebradley/leetcode.git"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@datastructures-js/heap": "^4.3.7"
+  }
 }
