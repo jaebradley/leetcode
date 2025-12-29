@@ -91,10 +91,10 @@ class Heap {
             const leftChildIndex = this.#getLeftChildIndex(index);
             const rightChildIndex = this.#getRightChildIndex(index);
 
-            const largerIndex = rightChildIndex > this.values.length - 1 ? leftChildIndex : (this.comparator(this.values[leftChildIndex], this.values[rightChildIndex]) > 0 ? leftChildIndex : rightChildIndex);
-            if (this.comparator(this.values[index], this.values[largerIndex]) < 0) {
-                this.#swapValues(largerIndex, index);
-                this.#heapifyDown(largerIndex);
+            const smallerIndex = rightChildIndex > this.values.length - 1 ? leftChildIndex : (this.comparator(this.values[leftChildIndex], this.values[rightChildIndex]) < 0 ? leftChildIndex : rightChildIndex);
+            if (this.comparator(this.values[index], this.values[smallerIndex]) > 0) {
+                this.#swapValues(smallerIndex, index);
+                this.#heapifyDown(smallerIndex);
             }
         }
     }
@@ -104,7 +104,7 @@ class Heap {
             const topValue = this.values[0];
             const lastValue = this.values.pop();
 
-            if (this.values.length > 1) {
+            if (this.values.length > 0) {
                 this.values[0] = lastValue;
                 this.#heapifyDown(0);
             }

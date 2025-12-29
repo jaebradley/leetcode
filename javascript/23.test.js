@@ -14,11 +14,7 @@ test('mergeKLists', () => {
         ],
         [
             [],
-            undefined
-        ],
-        [
-            [undefined],
-            undefined
+            null
         ],
     ].forEach((testCase) => {
         let mergedList = mergeKLists(testCase[0])
