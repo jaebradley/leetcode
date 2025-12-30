@@ -24,13 +24,43 @@
  *
  */
 
+import {MinHeap} from "@datastructures-js/heap";
+
 /**
+ * Approach: think of negative integers and positive integers contained within the nums array in the same way - they
+ * both may potentially need to be subtracted from some value in order to produce the kth sum.
+ *
+ * Iterate over the array, summing all positive values and replacing negative values with their absolute values.
+ * Then sort this array in ascending order.
+ * Initialize an array to calculate the kth smallest differences.
+ * Do the following loop k times:
+ * Pop off the max heap and add the value to the kth-smallest differences array.
+ * For the popped element, keep track of the sorted array index value used to generate the element value.
  * @param {number[]} nums
  * @param {number} k
  * @return {number}
  */
 const kSum = function (nums, k) {
-
+    let maximumSum = 0;
+    nums.forEach((num, index) => {
+        if (num > 0) {
+            maximumSum += num;
+        } else {
+            nums[index] = Math.abs(num);
+        }
+    });
+    nums.sort((a, b) => a - b);
+    const minimumDifferences = [];
+    const minHeap = new MinHeap((value) => value[0], [[nums[0], 0]]);
+    for (let i = 0; i < k && !minHeap.isEmpty(); i++) {
+        const [difference, index] = minHeap.pop();
+        minimumDifferences.push(difference);
+        if (index < nums.length - 1) {
+            minHeap.push([difference + nums[index + 1], index + 1]);
+            minHeap.push([difference - nums[index] + nums[index + 1], index + 1]);
+        }
+    }
+    return ([maximumSum].concat(minimumDifferences.map(v => maximumSum - v)))[k - 1];
 };
 
 export default kSum;
