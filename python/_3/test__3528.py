@@ -1,6 +1,6 @@
 import pytest
 
-from _3528 import Solution
+from _3528 import UnionFindSolution, BFSSolution
 
 
 class TestSolution:
@@ -17,4 +17,5 @@ class TestSolution:
             ),
         ])
     def test(self, conversions, expected):
-        assert Solution().baseUnitConversions(conversions) == expected
+        for solution in (UnionFindSolution(), BFSSolution()):
+            assert solution.baseUnitConversions(conversions) == expected

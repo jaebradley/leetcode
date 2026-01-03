@@ -1,7 +1,10 @@
 """
-There are n types of units indexed from 0 to n - 1. You are given a 2D integer array conversions of length n - 1, where conversions[i] = [sourceUniti, targetUniti, conversionFactori]. This indicates that a single unit of type sourceUniti is equivalent to conversionFactori units of type targetUniti.
+There are n types of units indexed from 0 to n - 1. You are given a 2D integer array conversions of length n - 1, where
+conversions[i] = [sourceUniti, targetUniti, conversionFactori]. This indicates that a single unit of type sourceUniti
+is equivalent to conversionFactori units of type targetUniti.
 
-Return an array baseUnitConversion of length n, where baseUnitConversion[i] is the number of units of type i equivalent to a single unit of type 0. Since the answer may be large, return each baseUnitConversion[i] modulo 109 + 7.
+Return an array baseUnitConversion of length n, where baseUnitConversion[i] is the number of units of type i equivalent
+to a single unit of type 0. Since the answer may be large, return each baseUnitConversion[i] modulo 109 + 7.
 
 Example 1:
 Input: conversions = [[0,1,2],[1,2,3]]
@@ -28,11 +31,74 @@ Constraints:
 conversions.length == n - 1
 0 <= sourceUniti, targetUniti < n
 1 <= conversionFactori <= 109
-It is guaranteed that unit 0 can be converted into any other unit through a unique combination of conversions without using any conversions in the opposite direction.
+It is guaranteed that unit 0 can be converted into any other unit through a unique combination of conversions without
+using any conversions in the opposite direction.
 """
+from collections import namedtuple, defaultdict, deque
 from typing import List
 
 
-class Solution:
+class UnionFindSolution:
+    """
+    Conversions are a graph problem.
+    Each conversion represents a directed edge from unit 1 to unit 2.
+    Parent of unit 2 is unit 1 and there is a mapping of conversion factors to unit 1.
+    Keep sizes of each parent.
+    At the end, create a function like the find function that calculates the conversion at each step.
+    Don't forget to modulo.
+    Runtime: O(# of conversions x log # of conversions) due to the Union Find "find" function
+    Space: O(# of conversions)
+    """
+
     def baseUnitConversions(self, conversions: List[List[int]]) -> List[int]:
-        raise NotImplementedError()
+        Node = namedtuple("Node", ["conversion_factor", "value"])
+        parents_by_node = {0: Node(conversion_factor=1, value=0)}
+
+        def find(node_value: int):
+            parent_node = parents_by_node[node_value]
+            if parent_node.value != node_value:
+                root = find(parent_node.value)
+                updated_node = Node(value=root.value,
+                                    conversion_factor=parent_node.conversion_factor * root.conversion_factor)
+                parents_by_node[node_value] = updated_node
+            return parents_by_node[node_value]
+
+        for source_unit, target_unit, conversion_factor in conversions:
+            parents_by_node[target_unit] = Node(value=source_unit, conversion_factor=conversion_factor)
+
+        results = [0] * (len(conversions) + 1)
+        for node_value in range(len(conversions) + 1):
+            results[node_value] = find(node_value).conversion_factor % (10 ** 9 + 7)
+
+        return results
+
+
+class BFSSolution:
+    """
+    Each conversion represents a directed edge from unit 1 to unit 2.
+    Adjacency list of source unit to target unit and conversion factor.
+    Starting with the source unit 0, add all source unit adjacency items to a queue.
+    Each item contains the current unit and the current conversion factor.
+    If item has not been visited, add its conversion factor to the results and add its adjacency items to the queue.
+    Don't forget to modulo.
+    Return the results.
+    """
+
+    def baseUnitConversions(self, conversions: List[List[int]]) -> List[int]:
+        Item = namedtuple("Item", ["conversion_factor", "value"])
+        results = [None] * (len(conversions) + 1)
+        adjacency_list = defaultdict(set)
+        for source_unit, target_unit, conversion_factor in conversions:
+            adjacency_list[source_unit].add(Item(value=target_unit, conversion_factor=conversion_factor))
+
+        adjacency_list[0].add(Item(value=0, conversion_factor=1))
+        queue = deque(adjacency_list[0])
+        while queue:
+            current_item = queue.popleft()
+            if results[current_item.value] is None:
+                results[current_item.value] = current_item.conversion_factor % (10 ** 9 + 7)
+                for neighbor in adjacency_list[current_item.value]:
+                    updated_conversion_factor = (current_item.conversion_factor * neighbor.conversion_factor)
+                    queue.append(Item(value=neighbor.value, conversion_factor=updated_conversion_factor))
+
+        return results
