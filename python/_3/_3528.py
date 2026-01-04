@@ -91,14 +91,13 @@ class BFSSolution:
         for source_unit, target_unit, conversion_factor in conversions:
             adjacency_list[source_unit].add(Item(value=target_unit, conversion_factor=conversion_factor))
 
-        adjacency_list[0].add(Item(value=0, conversion_factor=1))
-        queue = deque(adjacency_list[0])
+        queue = deque([0])
+        results[0] = 1
         while queue:
             current_item = queue.popleft()
-            if results[current_item.value] is None:
-                results[current_item.value] = current_item.conversion_factor % (10 ** 9 + 7)
-                for neighbor in adjacency_list[current_item.value]:
-                    updated_conversion_factor = (current_item.conversion_factor * neighbor.conversion_factor)
-                    queue.append(Item(value=neighbor.value, conversion_factor=updated_conversion_factor))
+            for neighbor in adjacency_list[current_item]:
+                if results[neighbor.value] is None:
+                    results[neighbor.value] = (results[current_item] * neighbor.conversion_factor) % (10 ** 9 + 7)
+                    queue.append(neighbor.value)
 
         return results
