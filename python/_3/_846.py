@@ -24,13 +24,11 @@ Constraints:
 0 <= hand[i] <= 109
 1 <= groupSize <= hand.length
 """
-import heapq
 from collections import Counter
 from typing import List
 
 
 class Solution:
-
     """
     Populate character counter for hand.
     For each card in the hand, try and find a straight.
@@ -39,6 +37,7 @@ class Solution:
     If any of the next groupSize counts have a zero count, return False.
     If it's possible to iterate over all cards in the hand successfully, return True.
     """
+
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
         c = Counter(hand)
 
@@ -58,4 +57,3 @@ class Solution:
                 start_card += 1
 
         return True
-
