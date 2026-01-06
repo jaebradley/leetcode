@@ -53,7 +53,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node_version_file: './javascript/.nvmrc'
+          node-version-file: './javascript/.nvmrc'
       - name: Run tests
         run: pushd ./javascript/ && npm ci && npm test && popd
         shell: bash
