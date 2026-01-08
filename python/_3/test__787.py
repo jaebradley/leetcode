@@ -1,6 +1,6 @@
 import pytest
 
-from _787 import BFSSolution
+from _787 import BFSSolution, BellmanFordSolution
 
 
 class TestSolution:
@@ -50,4 +50,5 @@ class TestSolution:
             ),
         ])
     def test(self, inputs, expected):
-        assert BFSSolution().findCheapestPrice(*inputs) == expected
+        for solution in (BellmanFordSolution(), BFSSolution()):
+            assert solution.findCheapestPrice(*inputs) == expected
