@@ -36,6 +36,7 @@ src != dst
 """
 import sys
 from collections import defaultdict, deque
+from copy import copy
 from typing import List
 
 
@@ -56,21 +57,42 @@ class BFSSolution:
             adjacency_list[start_city].add((end_city, price))
 
         cost_by_city = defaultdict(lambda: sys.maxsize)
-        cost_by_city[src] = 0
-
-        q = deque([(src, cost_by_city[src])])
+        q = deque([(src, 0)])
         current_level = 0
         while q and current_level <= k:
             for _ in range(len(q)):
                 current_city, current_cost = q.popleft()
-                cost_by_city[current_city] = min(cost_by_city[current_city], current_cost)
 
                 for neighbor, price in adjacency_list[current_city]:
-                    next_price = cost_by_city[current_city] + price
+                    next_price = current_cost + price
                     if next_price < cost_by_city[neighbor]:
                         cost_by_city[neighbor] = next_price
                         q.append((neighbor, next_price))
 
             current_level += 1
+
+        return -1 if cost_by_city[dst] == sys.maxsize else cost_by_city[dst]
+
+
+class BellmanFordSolution:
+    """
+    Approach:
+    Keep track of cost by city.
+    Iterate k + 1 times (to account for 0 stops).
+    For each flight, check to see if the cost to reach the destination city through the starting city is cheaper than the previously recorded cost for the destination city.
+    If so, update the cost for the destination city.
+    At the end, return the cost for the destination city, or -1 if it is still set to sys.maxsize.
+    """
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        cost_by_city = defaultdict(lambda: sys.maxsize)
+        cost_by_city[src] = 0
+
+        for _ in range(k + 1):
+            current_level_cost_by_city = copy(cost_by_city)
+
+            for start_city, end_city, price in flights:
+                current_level_cost_by_city[end_city] = min(cost_by_city[start_city] + price, current_level_cost_by_city[end_city])
+
+            cost_by_city = current_level_cost_by_city
 
         return -1 if cost_by_city[dst] == sys.maxsize else cost_by_city[dst]
