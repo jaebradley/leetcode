@@ -31,6 +31,8 @@ Constraints:
 * There is at most one road connecting any two intersections.
 * You can reach any intersection from any other intersection.
 """
+import heapq
+from collections import defaultdict
 from typing import List
 
 
@@ -40,6 +42,51 @@ class Solution:
     Min priority queue of (current trip duration, last intersection).
     Adjacency list of intersection to neighboring intersections.
     Keep hash map of intersection to smallest cost to reach intersection.
+    (or keep separate visited set? a solution with a cycle should never lead to the min cost?)
+    Once n - 1th intersection is popped off the priority queue, the smallest amount of time to go from
+    intersection 0 to intersection n - 1 has been identified.
+    The only other possible values are queue elements with the same trip duration. These elements should be at the
+    front of the queue.
     """
+
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
-        raise NotImplementedError()
+        adjacency_list = defaultdict(set)
+        times_by_intersection = defaultdict(int)
+        visited = set()
+
+        for start, end, time in roads:
+            adjacency_list[start].add(end)
+            adjacency_list[end].add(start)
+            times_by_intersection[(start, end)] = time
+            times_by_intersection[(end, start)] = time
+
+        q = [(0, 0)]
+        minimum_paths, minimum_current_time = 0, 0
+        while q:
+            current_time, current_intersection = heapq.heappop(q)
+            if current_intersection == n - 1:
+                minimum_paths += 1
+                minimum_current_time = current_time
+                break
+
+            visited.add(current_intersection)
+            for next_intersection in adjacency_list[current_intersection]:
+                if next_intersection not in visited:
+                    heapq.heappush(q,
+                                   (
+                                       current_time + times_by_intersection.get(
+                                           (current_intersection, next_intersection)
+                                       ),
+                                       next_intersection
+                                   )
+                                   )
+
+        while q:
+            next_minimum_time, next_intersection = heapq.heappop(q)
+            if next_minimum_time == minimum_current_time:
+                if next_intersection == n - 1:
+                    minimum_paths += 1
+            else:
+                break
+
+        return minimum_paths
