@@ -50,43 +50,34 @@ class Solution:
     """
 
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        modifier = 10**9 + 7
+
         adjacency_list = defaultdict(set)
-        times_by_intersection = defaultdict(int)
-        visited = set()
 
         for start, end, time in roads:
-            adjacency_list[start].add(end)
-            adjacency_list[end].add(start)
-            times_by_intersection[(start, end)] = time
-            times_by_intersection[(end, start)] = time
+            adjacency_list[start].add((end, time))
+            adjacency_list[end].add((start, time))
+
+        minimum_distances_by_node = defaultdict(lambda: float("inf"))
+        minimum_pathways_by_node = defaultdict(lambda: 0)
+
+        minimum_distances_by_node[0] = 0
+        minimum_pathways_by_node[0] = 1
 
         q = [(0, 0)]
-        minimum_paths, minimum_current_time = 0, 0
         while q:
             current_time, current_intersection = heapq.heappop(q)
-            if current_intersection == n - 1:
-                minimum_paths += 1
-                minimum_current_time = current_time
-                break
+            current_minimum_distance = minimum_distances_by_node[current_intersection]
 
-            visited.add(current_intersection)
-            for next_intersection in adjacency_list[current_intersection]:
-                if next_intersection not in visited:
-                    heapq.heappush(q,
-                                   (
-                                       current_time + times_by_intersection.get(
-                                           (current_intersection, next_intersection)
-                                       ),
-                                       next_intersection
-                                   )
-                                   )
+            if current_time <= current_minimum_distance:
+                for next_intersection, travel_time in adjacency_list[current_intersection]:
+                    next_travel_time = current_minimum_distance + travel_time
+                    current_minimum_next_distance = minimum_distances_by_node[next_intersection]
+                    if next_travel_time < current_minimum_next_distance:
+                        minimum_distances_by_node[next_intersection] = next_travel_time
+                        minimum_pathways_by_node[next_intersection] = minimum_pathways_by_node[current_intersection]
+                        heapq.heappush(q, (next_travel_time, next_intersection))
+                    elif next_travel_time == current_minimum_next_distance:
+                        minimum_pathways_by_node[next_intersection] = (minimum_pathways_by_node[next_intersection] + minimum_pathways_by_node[current_intersection]) % modifier
 
-        while q:
-            next_minimum_time, next_intersection = heapq.heappop(q)
-            if next_minimum_time == minimum_current_time:
-                if next_intersection == n - 1:
-                    minimum_paths += 1
-            else:
-                break
-
-        return minimum_paths
+        return minimum_pathways_by_node[n - 1]
