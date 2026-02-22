@@ -41,12 +41,24 @@ class Solution:
     Approach:
     Min priority queue of (current trip duration, last intersection).
     Adjacency list of intersection to neighboring intersections.
-    Keep hash map of intersection to smallest cost to reach intersection.
-    (or keep separate visited set? a solution with a cycle should never lead to the min cost?)
-    Once n - 1th intersection is popped off the priority queue, the smallest amount of time to go from
-    intersection 0 to intersection n - 1 has been identified.
-    The only other possible values are queue elements with the same trip duration. These elements should be at the
-    front of the queue.
+    Keep the time cost of traversing from the starting intersection to the ending intersection in the adjacency list as well.
+    Keep hash map of intersection to minimum cost to reach intersection.
+    Keep hash map of number of paths to reach intersection with the smallest cost (minimum pathway count).
+    Pop off values from the priority queue.
+    Only process values where the time cost is less than, or equal to, the current stored minimum cost.
+    Find the neighbors for the current intersection.
+    Calculate the next travel times for these neighbors.
+
+    If the next travel time is less than the current minimum distance for the neighbor, update the travel time for the
+    intersection, and adopt the pathway count from the current intersection, for the neighbor.
+    Push the next travel time + the neighbor to the priority queue.
+
+    If the next travel time is equal to the current minimum distance for the neighbor, update the pathway count to be
+    the current pathway count + the neighbor's current pathway count. This sum is modulo the modifier.
+
+    After exhausting the priority queue, return the minimum pathway count of n-1.
+
+    Runtime: O(# of edges log(# of vertices)) = O(# of roads log(# of intersections))
     """
 
     def countPaths(self, n: int, roads: List[List[int]]) -> int:
