@@ -1,6 +1,6 @@
 import pytest
 
-from _1091 import Solution
+from _1091 import BFSSolution, NonOverwritingBFS
 
 
 class TestSolution:
@@ -12,4 +12,5 @@ class TestSolution:
             ([[1, 0, 0], [1, 1, 0], [1, 1, 0]], -1),
         ])
     def test(self, grid, expected):
-        assert Solution().shortestPathBinaryMatrix(grid) == expected
+        for solution in (NonOverwritingBFS(), BFSSolution()):
+            assert solution.shortestPathBinaryMatrix(grid) == expected
